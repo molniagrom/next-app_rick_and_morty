@@ -1,0 +1,1 @@
+export type Nullablen<T> = T | null
