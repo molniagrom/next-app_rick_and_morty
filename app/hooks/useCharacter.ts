@@ -18,7 +18,7 @@ export const useCharacter = (): { character: Nullablen<CharacterType>, loading: 
         if (id) {
             setLoading(true);
             setError(null);
-            axios.get(`https://rickandmortyapi.com/api/character/${id}`)
+            axios.get(`${process.env.NEXT_PUBLIC_RICK_AND_MORTY_API_URL}/character/${id}`)
                 .then(res => {
                     setCharacter(res.data);
                     setLoading(false);

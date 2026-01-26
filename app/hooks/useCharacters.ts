@@ -6,7 +6,7 @@ export const useCharacters = (): Nullablen<CharacterType[]> => {
     const [characters, setCharacters] = useState<null | CharacterType[]>(null)
 
     useEffect(() => {
-        axios.get('https://rickandmortyapi.com/api/character').then(res => {
+        axios.get(`${process.env.NEXT_PUBLIC_RICK_AND_MORTY_API_URL}/character`).then(res => {
             setCharacters(res.data.results)
         })
     }, []);
