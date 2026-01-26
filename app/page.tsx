@@ -1,4 +1,3 @@
-import Link from "next/dist/client/link";
 import s from "./page.module.scss"
 import {HeadMeta} from "@/components/HeadMeta/HeadMeta";
 
