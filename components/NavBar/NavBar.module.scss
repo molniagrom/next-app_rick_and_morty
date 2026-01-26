@@ -1,4 +1,4 @@
-/* NavBar.module.css */
+/* NavBar.module.scss */
 
 .navContainer {
     display: flex;
@@ -16,10 +16,10 @@
     font-size: 1.1rem;
     font-weight: 500;
     transition: color 0.2s ease-in-out;
-}
 
-.navLink:hover {
-    color: #ff9800;
+    &:hover {
+        color: #ff9800;
+    }
 }
 
 .activeLink {

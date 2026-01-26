@@ -1,6 +1,6 @@
 import React from 'react';
 import Link from "next/link"; // Можно использовать упрощенный импорт
-import s from './NavBar.module.css'; // Импортируем стили
+import s from './NavBar.module.scss'; // Импортируем стили
 
 export const NavBar = () => {
     return (

@@ -1,7 +1,7 @@
 "use client"
 
 import {useCharacters} from "@/app/hooks/useCharacters";
-import s from "./page.module.css"
+import s from "./page.module.scss"
 import CharacterCard from "@/components/CharacterCard/CharacterCard";
 import {HeadMeta} from "@/components/HeadMeta/HeadMeta";
 import {NavBar} from "@/components/NavBar/NavBar";
