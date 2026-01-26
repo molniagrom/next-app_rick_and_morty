@@ -4,6 +4,7 @@ import {useCharacters} from "@/app/hooks/useCharacters";
 import s from "./page.module.scss"
 import CharacterCard from "@/components/CharacterCard/CharacterCard";
 import {HeadMeta} from "@/components/HeadMeta/HeadMeta";
+import Link from "next/link";
 
 
 export default function Page() {
@@ -16,7 +17,9 @@ export default function Page() {
             <h2 className={s.title}>Characters</h2>
             <main className={s.global}>
                 {characters && characters.map((character) => (
-                    <CharacterCard key={character.id} character={character}/>
+                    <Link key={character.id} href={`/characters/${character.id}`}>
+                        <CharacterCard character={character}/>
+                    </Link>
                 ))}
             </main>
         </div>
