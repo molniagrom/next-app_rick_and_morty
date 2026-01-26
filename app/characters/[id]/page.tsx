@@ -4,6 +4,8 @@ import React from 'react';
 import {HeadMeta} from "@/components/HeadMeta/HeadMeta";
 import CharacterCard from "@/components/CharacterCard/CharacterCard";
 import {useCharacter} from "@/app/hooks/useCharacter";
+import s from './page.module.scss';
+
 
 export default function CharacterPage() {
 
@@ -32,9 +34,11 @@ export default function CharacterPage() {
     }
 
     return (
-        <div>
+        <div className={s.containerCharacter}>
             <HeadMeta title={character ? character.name : "Character"}/>
-            {character && <CharacterCard character={character}/>}
+            <div>
+                {character && <CharacterCard character={character}/>}
+            </div>
         </div>
     );
 };

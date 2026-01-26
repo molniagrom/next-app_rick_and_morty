@@ -5,6 +5,7 @@ export default function Home() {
     return (
         <main className={s.main}>
             <HeadMeta title={"Welcome to My Next Application"}/>
+            
         </main>
     );
 }
