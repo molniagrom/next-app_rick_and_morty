@@ -18,5 +18,154 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 100vh;
+    min-height: 100vh;
+    padding: 20px;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    color: #fff;
+}
+
+.welcomeContainer {
+    max-width: 1200px;
+    width: 100%;
+    text-align: center;
+}
+
+.headerSection {
+    margin-bottom: 40px;
+    
+    .mainTitle {
+        font-size: 3.5rem;
+        font-weight: 800;
+        margin: 0 0 15px 0;
+        background: linear-gradient(45deg, #00eeff, #00ff9d);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        text-shadow: 0 0 30px rgba(0, 238, 255, 0.5);
+    }
+    
+    .subtitle {
+        font-size: 1.8rem;
+        font-weight: 300;
+        margin: 0;
+        color: #a0d2eb;
+        opacity: 0.9;
+    }
+}
+
+.contentSection {
+    .infoCard {
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(0, 238, 255, 0.3);
+        border-radius: 15px;
+        padding: 30px;
+        margin-bottom: 40px;
+        backdrop-filter: blur(10px);
+        
+        h3 {
+            font-size: 2rem;
+            margin: 0 0 15px 0;
+            color: #00eeff;
+        }
+        
+        p {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            color: #e0e0e0;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+    }
+    
+    .featuresGrid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 25px;
+        margin-bottom: 40px;
+    }
+    
+    .featureItem {
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(128, 128, 128, 0.2);
+        border-radius: 12px;
+        padding: 25px;
+        transition: all 0.3s ease;
+        
+        &:hover {
+            transform: translateY(-5px);
+            border-color: rgba(0, 238, 255, 0.5);
+            box-shadow: 0 10px 25px rgba(0, 238, 255, 0.2);
+        }
+        
+        .featureIcon {
+            font-size: 2.5rem;
+            display: block;
+            margin-bottom: 15px;
+        }
+        
+        h4 {
+            font-size: 1.4rem;
+            margin: 0 0 10px 0;
+            color: #00ff9d;
+        }
+        
+        p {
+            font-size: 1rem;
+            color: #b0b0b0;
+            line-height: 1.5;
+            margin: 0;
+        }
+    }
+    
+    .ctaSection {
+        .exploreButton {
+            display: inline-block;
+            background: linear-gradient(45deg, #00eeff, #00ff9d);
+            color: #000;
+            font-size: 1.4rem;
+            font-weight: 700;
+            padding: 18px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(0, 238, 255, 0.4);
+            
+            &:hover {
+                transform: scale(1.05);
+                box-shadow: 0 8px 30px rgba(0, 238, 255, 0.6);
+                text-decoration: none;
+                color: #000;
+            }
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    .headerSection {
+        .mainTitle {
+            font-size: 2.5rem;
+        }
+        
+        .subtitle {
+            font-size: 1.4rem;
+        }
+    }
+    
+    .contentSection {
+        .infoCard {
+            padding: 20px;
+            
+            h3 {
+                font-size: 1.6rem;
+            }
+            
+            p {
+                font-size: 1rem;
+            }
+        }
+        
+        .featureItem {
+            padding: 20px;
+        }
+    }
 }
