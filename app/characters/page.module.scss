@@ -1,13 +1,53 @@
-.global{
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    grid-column-gap: 10px;
-    grid-row-gap: 10px;
+.page {
+    min-height: 100vh;
+    padding: 32px 20px 48px;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.headerSection {
+    text-align: center;
+    margin-bottom: 32px;
 }
 
 .title {
-    font-weight: bold;
-    font-size: 25px;
-    padding: 15px;
-    text-align: center;
+    margin: 0;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 800;
+    background: linear-gradient(45deg, #00eeff, #00ff9d);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: 0 0 30px rgba(0, 238, 255, 0.5);
+}
+
+.subtitle {
+    margin: 10px 0 0;
+    font-size: 1.05rem;
+    color: #a0d2eb;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 16px;
+}
+
+.cardLink {
+    text-decoration: none;
+}
+
+@media (max-width: 768px) {
+    .page {
+        padding: 24px 14px 36px;
+    }
+
+    .grid {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 12px;
+    }
 }

@@ -1,13 +1,13 @@
-import React from 'react';
-import { CharacterType } from "@/app/hooks/useCharacters";
+import React from "react";
+import {CharacterType} from "@/app/hooks/useCharacters";
 import Image from "next/image";
-import styles from '../CharacterCard.module.scss';
+import styles from "../CharacterCard.module.scss";
 
 type CharacterCardProps = {
     character: CharacterType
 }
 
-const CharacterCard = ({ character }: CharacterCardProps) => {
+const CharacterCard = ({character}: CharacterCardProps) => {
     return (
         <div className={styles.card}>
             <div className={styles.name}>{character.name}</div>
@@ -17,7 +17,7 @@ const CharacterCard = ({ character }: CharacterCardProps) => {
                 width={300}
                 height={300}
                 className={styles.characterImage}
-                style={{ width: '100%', height: 'auto' }} // Делает изображение адаптивным внутри карточки
+                style={{width: "100%", height: "auto"}}
             />
         </div>
     );
