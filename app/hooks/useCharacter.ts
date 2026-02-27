@@ -16,11 +16,10 @@ export const useCharacter = (): { character: Nullablen<CharacterType>, loading: 
 
     useEffect(() => {
         if (id) {
-            setLoading(true);
-            setError(null);
             axios.get(`${process.env.NEXT_PUBLIC_RICK_AND_MORTY_API_URL}/character/${id}`)
                 .then(res => {
                     setCharacter(res.data);
+                    setError(null);
                     setLoading(false);
                 })
                 .catch(err => {
