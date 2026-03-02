@@ -1,0 +1,100 @@
+.page {
+    min-height: 100vh;
+    padding: 28px 20px 44px;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.title {
+    margin: 0 0 18px;
+    text-align: center;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 800;
+    background: linear-gradient(45deg, #00eeff, #00ff9d);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: 0 0 30px rgba(0, 238, 255, 0.5);
+}
+
+.state {
+    margin-top: 14px;
+    text-align: center;
+    color: #c9e6f2;
+}
+
+.searchForm {
+    margin: 0 auto 16px;
+    max-width: 680px;
+    display: flex;
+    gap: 10px;
+}
+
+.searchInput {
+    flex: 1;
+    border: 1px solid rgba(0, 238, 255, 0.35);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.07);
+    color: #eafcff;
+    padding: 10px 14px;
+    outline: none;
+}
+
+.searchInput::placeholder {
+    color: #98c7d8;
+}
+
+.searchButton {
+    border: none;
+    border-radius: 999px;
+    padding: 10px 16px;
+    cursor: pointer;
+    font-weight: 700;
+    color: #001a1f;
+    background: linear-gradient(45deg, #00eeff, #00ff9d);
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 14px;
+}
+
+.cardLink {
+    text-decoration: none;
+    display: block;
+}
+
+.card {
+    border: 1px solid rgba(0, 238, 255, 0.3);
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(8px);
+    padding: 14px;
+    color: #eafcff;
+}
+
+.card h2 {
+    margin: 0 0 10px;
+    font-size: 1.1rem;
+    color: #00eeff;
+}
+
+.card p {
+    margin: 6px 0;
+    font-size: 0.95rem;
+}
+
+.card span {
+    color: #98c7d8;
+}
+
+@media (max-width: 768px) {
+    .searchForm {
+        flex-direction: column;
+    }
+}

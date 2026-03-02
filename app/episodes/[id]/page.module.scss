@@ -1,0 +1,59 @@
+.page {
+    min-height: 100vh;
+    padding: 28px 20px 44px;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.infoCard,
+.stateBox {
+    border: 1px solid rgba(0, 238, 255, 0.32);
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(8px);
+    color: #eafcff;
+}
+
+.infoCard {
+    padding: 24px;
+}
+
+.title {
+    margin: 0 0 12px;
+    font-size: clamp(1.8rem, 3vw, 2.5rem);
+    font-weight: 800;
+    background: linear-gradient(45deg, #00eeff, #00ff9d);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.infoCard p {
+    margin: 10px 0;
+}
+
+.infoCard span {
+    color: #98c7d8;
+}
+
+.backLink {
+    margin-top: 14px;
+    display: inline-block;
+    text-decoration: none;
+    color: #001a1f;
+    background: linear-gradient(45deg, #00eeff, #00ff9d);
+    font-weight: 700;
+    border-radius: 999px;
+    padding: 10px 16px;
+}
+
+.stateBox {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 32px;
+    text-align: center;
+}
