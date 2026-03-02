@@ -40,6 +40,41 @@
     color: #98c7d8;
 }
 
+.charactersBlock {
+    margin-top: 14px;
+}
+
+.charactersLabel {
+    color: #98c7d8;
+}
+
+.charactersList {
+    margin: 10px 0 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 14px;
+}
+
+.charactersList li {
+    margin: 0;
+}
+
+.characterLink {
+    color: #00eeff;
+    text-decoration: none;
+}
+
+.characterLink:hover {
+    text-decoration: underline;
+    text-underline-offset: 4px;
+}
+
+.emptyCharacters {
+    margin: 8px 0 0;
+}
+
 .backLink {
     margin-top: 14px;
     display: inline-block;

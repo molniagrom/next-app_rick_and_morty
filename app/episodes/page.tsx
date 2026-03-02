@@ -2,6 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import {useEpisodes} from "@/app/hooks/useEpisodes";
 import s from "./page.module.scss";
 
@@ -9,7 +10,7 @@ export default function EpisodesPage() {
     const [inputValue, setInputValue] = React.useState("");
     const [query, setQuery] = React.useState("");
     const episodes = useEpisodes(query);
-
+debugger
     const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setQuery(inputValue.trim());
@@ -41,6 +42,18 @@ export default function EpisodesPage() {
                         {episodes.map((episode) => (
                             <Link key={episode.id} href={`/episodes/${episode.id}`} className={s.cardLink}>
                                 <article className={s.card}>
+                                    {/*For now, the server sends only one placeholder image for all episodes. */}
+                                    {episode.previewImage ? (
+                                        <Image
+                                            src={episode.previewImage}
+                                            alt={`Episode ${episode.name}`}
+                                            width={320}
+                                            height={180}
+                                            className={s.previewImage}
+                                        />
+                                    ) : (
+                                        <div className={s.previewFallback}>No image</div>
+                                    )}
                                     <h2>{episode.name}</h2>
                                     <p><span>Code:</span> {episode.episode}</p>
                                     <p><span>Air date:</span> {episode.air_date}</p>
