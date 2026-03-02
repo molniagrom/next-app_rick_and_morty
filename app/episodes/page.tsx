@@ -10,7 +10,7 @@ export default function EpisodesPage() {
     const [inputValue, setInputValue] = React.useState("");
     const [query, setQuery] = React.useState("");
     const episodes = useEpisodes(query);
-debugger
+
     const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setQuery(inputValue.trim());
