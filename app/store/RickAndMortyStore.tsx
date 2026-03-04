@@ -1,7 +1,7 @@
 "use client";
 
 import {createContext, Dispatch, PropsWithChildren, SetStateAction, useContext, useMemo, useState} from "react";
-import {CharacterType, EpisodeCharacter, EpisodeType, ResourceState} from "@/app/types/types";
+import {CharacterType, EpisodeCharacter, EpisodeType, LocationsPayload, ResourceState} from "@/app/types/types";
 
 export type RickAndMortyState = {
     characters: ResourceState<CharacterType[]>,
@@ -9,6 +9,7 @@ export type RickAndMortyState = {
     episodes: ResourceState<EpisodeType[]>,
     episode: ResourceState<EpisodeType>,
     episodeCharacters: ResourceState<EpisodeCharacter[]>,
+    locations: ResourceState<LocationsPayload>,
 }
 
 type RickAndMortyStoreValue = {
@@ -23,6 +24,7 @@ type ResourceMap = {
     episodes: EpisodeType[],
     episode: EpisodeType,
     episodeCharacters: EpisodeCharacter[],
+    locations: LocationsPayload,
 }
 
 type ResourceKey = keyof ResourceMap;
@@ -51,6 +53,7 @@ const initialState: RickAndMortyState = {
     episodes: emptyResource<EpisodeType[]>(),
     episode: emptyResource<EpisodeType>(),
     episodeCharacters: emptyResource<EpisodeCharacter[]>(),
+    locations: emptyResource<LocationsPayload>(),
 };
 
 const RickAndMortyStoreContext = createContext<RickAndMortyStoreValue | null>(null);
@@ -59,6 +62,7 @@ export const RickAndMortyProvider = ({children}: PropsWithChildren) => {
     const [state, setState] = useState<RickAndMortyState>(initialState);
     const actions = useMemo<RickAndMortyStoreActions>(() => ({
         beginResource: (resource, key, resetData = true) => {
+            debugger
             setState((prev) => ({
                 ...prev,
                 [resource]: {
