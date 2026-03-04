@@ -6,7 +6,7 @@ import {useParams} from "next/navigation";
 import {useRickAndMortyStore} from "@/app/store/RickAndMortyStore";
 
 export const useEpisode = () => {
-    const {state, setState} = useRickAndMortyStore();
+    const {state, actions} = useRickAndMortyStore();
     const params = useParams();
     const id = String(params?.id ?? "");
     const episodeState = state.episode;
@@ -20,42 +20,17 @@ export const useEpisode = () => {
             return;
         }
 
-        setState((prev) => ({
-            ...prev,
-            episode: {
-                ...prev.episode,
-                key: id,
-                data: null,
-                loading: true,
-                error: null,
-            },
-        }));
+        actions.beginResource("episode", id);
 
         axios.get(`/api/rickandmorty/episode/${id}`)
             .then((res) => {
-                setState((prev) => ({
-                    ...prev,
-                    episode: {
-                        key: id,
-                        data: res.data,
-                        loading: false,
-                        error: null,
-                    },
-                }));
+                actions.resolveResource("episode", id, res.data);
             })
             .catch((err) => {
                 console.error(err);
-                setState((prev) => ({
-                    ...prev,
-                    episode: {
-                        key: id,
-                        data: null,
-                        loading: false,
-                        error: "Failed to load episode",
-                    },
-                }));
+                actions.rejectResource("episode", id, "Failed to load episode", null);
             });
-    }, [episodeState.data, episodeState.key, episodeState.loading, id, setState]);
+    }, [actions, episodeState.data, episodeState.key, episodeState.loading, id]);
 
     return {
         episode: episodeState.key === id ? episodeState.data : null,

@@ -14,6 +14,28 @@ export type RickAndMortyState = {
 type RickAndMortyStoreValue = {
     state: RickAndMortyState,
     setState: Dispatch<SetStateAction<RickAndMortyState>>,
+    actions: RickAndMortyStoreActions,
+}
+
+type ResourceMap = {
+    characters: CharacterType[],
+    character: CharacterType,
+    episodes: EpisodeType[],
+    episode: EpisodeType,
+    episodeCharacters: EpisodeCharacter[],
+}
+
+type ResourceKey = keyof ResourceMap;
+
+type RickAndMortyStoreActions = {
+    beginResource: <K extends ResourceKey>(resource: K, key: string, resetData?: boolean) => void,
+    resolveResource: <K extends ResourceKey>(resource: K, key: string, data: ResourceMap[K]) => void,
+    rejectResource: <K extends ResourceKey>(
+        resource: K,
+        key: string,
+        error: string,
+        fallbackData: ResourceMap[K] | null
+    ) => void,
 }
 
 const emptyResource = <T,>(): ResourceState<T> => ({
@@ -35,7 +57,43 @@ const RickAndMortyStoreContext = createContext<RickAndMortyStoreValue | null>(nu
 
 export const RickAndMortyProvider = ({children}: PropsWithChildren) => {
     const [state, setState] = useState<RickAndMortyState>(initialState);
-    const value = useMemo(() => ({state, setState}), [state]);
+    const actions = useMemo<RickAndMortyStoreActions>(() => ({
+        beginResource: (resource, key, resetData = true) => {
+            setState((prev) => ({
+                ...prev,
+                [resource]: {
+                    ...prev[resource],
+                    key,
+                    loading: true,
+                    error: null,
+                    data: resetData ? null : prev[resource].data,
+                },
+            }));
+        },
+        resolveResource: (resource, key, data) => {
+            setState((prev) => ({
+                ...prev,
+                [resource]: {
+                    key,
+                    data,
+                    loading: false,
+                    error: null,
+                },
+            }));
+        },
+        rejectResource: (resource, key, error, fallbackData) => {
+            setState((prev) => ({
+                ...prev,
+                [resource]: {
+                    key,
+                    data: fallbackData,
+                    loading: false,
+                    error,
+                },
+            }));
+        },
+    }), []);
+    const value = useMemo(() => ({state, setState, actions}), [actions, state]);
 
     return (
         <RickAndMortyStoreContext.Provider value={value}>

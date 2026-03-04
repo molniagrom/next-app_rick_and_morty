@@ -6,7 +6,7 @@ import {useParams} from "next/navigation";
 import {useRickAndMortyStore} from "@/app/store/RickAndMortyStore";
 
 export const useCharacter = () => {
-    const {state, setState} = useRickAndMortyStore();
+    const {state, actions} = useRickAndMortyStore();
     const params = useParams();
     const id = String(params?.id ?? "");
     const characterState = state.character;
@@ -20,42 +20,17 @@ export const useCharacter = () => {
             return;
         }
 
-        setState((prev) => ({
-            ...prev,
-            character: {
-                ...prev.character,
-                key: id,
-                loading: true,
-                error: null,
-                data: null,
-            },
-        }));
+        actions.beginResource("character", id);
 
         axios.get(`/api/rickandmorty/character/${id}`)
             .then(res => {
-                setState((prev) => ({
-                    ...prev,
-                    character: {
-                        key: id,
-                        data: res.data,
-                        loading: false,
-                        error: null,
-                    },
-                }));
+                actions.resolveResource("character", id, res.data);
             })
             .catch(err => {
                 console.error(err);
-                setState((prev) => ({
-                    ...prev,
-                    character: {
-                        key: id,
-                        data: null,
-                        loading: false,
-                        error: "Failed to load character",
-                    },
-                }));
+                actions.rejectResource("character", id, "Failed to load character", null);
             });
-    }, [characterState.data, characterState.key, characterState.loading, id, setState]);
+    }, [actions, characterState.data, characterState.key, characterState.loading, id]);
 
     return {
         character: characterState.key === id ? characterState.data : null,

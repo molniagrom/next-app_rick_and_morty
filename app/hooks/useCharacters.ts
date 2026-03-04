@@ -3,7 +3,7 @@ import axios from "axios";
 import {useRickAndMortyStore} from "@/app/store/RickAndMortyStore";
 
 export const useCharacters = () => {
-    const {state, setState} = useRickAndMortyStore();
+    const {state, actions} = useRickAndMortyStore();
     const charactersState = state.characters;
 
     useEffect(() => {
@@ -11,41 +11,17 @@ export const useCharacters = () => {
             return;
         }
 
-        setState((prev) => ({
-            ...prev,
-            characters: {
-                ...prev.characters,
-                key: "all",
-                loading: true,
-                error: null,
-            },
-        }));
+        actions.beginResource("characters", "all", false);
 
         axios.get(`/api/rickandmorty/character`)
             .then(res => {
-                setState((prev) => ({
-                    ...prev,
-                    characters: {
-                        key: "all",
-                        data: res.data.results,
-                        loading: false,
-                        error: null,
-                    },
-                }));
+                actions.resolveResource("characters", "all", res.data.results);
             })
             .catch((fetchError) => {
                 console.error("Characters request failed:", fetchError);
-                setState((prev) => ({
-                    ...prev,
-                    characters: {
-                        key: "all",
-                        data: [],
-                        loading: false,
-                        error: "Failed to load characters",
-                    },
-                }));
+                actions.rejectResource("characters", "all", "Failed to load characters", []);
             });
-    }, [charactersState.data, charactersState.loading, setState]);
+    }, [actions, charactersState.data, charactersState.loading]);
 
     return {
         characters: charactersState.data,

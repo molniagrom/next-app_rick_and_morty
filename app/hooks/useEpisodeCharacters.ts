@@ -6,7 +6,7 @@ import {EpisodeType} from "@/app/types/types";
 import {useRickAndMortyStore} from "@/app/store/RickAndMortyStore";
 
 export const useEpisodeCharacters = (episode: EpisodeType | null) => {
-    const {state, setState} = useRickAndMortyStore();
+    const {state, actions} = useRickAndMortyStore();
     const episodeCharactersState = state.episodeCharacters;
     const episodeId = episode ? String(episode.id) : "";
 
@@ -27,28 +27,11 @@ export const useEpisodeCharacters = (episode: EpisodeType | null) => {
             .filter((id): id is string => Boolean(id));
 
         if (ids.length === 0) {
-            setState((prev) => ({
-                ...prev,
-                episodeCharacters: {
-                    key: episodeId,
-                    data: [],
-                    loading: false,
-                    error: null,
-                },
-            }));
+            actions.resolveResource("episodeCharacters", episodeId, []);
             return;
         }
 
-        setState((prev) => ({
-            ...prev,
-            episodeCharacters: {
-                ...prev.episodeCharacters,
-                key: episodeId,
-                data: null,
-                loading: true,
-                error: null,
-            },
-        }));
+        actions.beginResource("episodeCharacters", episodeId);
 
         axios.get(`/api/rickandmorty/character/${ids.join(",")}`)
             .then((res) => {
@@ -58,29 +41,13 @@ export const useEpisodeCharacters = (episode: EpisodeType | null) => {
                     name: character.name,
                 }));
 
-                setState((prev) => ({
-                    ...prev,
-                    episodeCharacters: {
-                        key: episodeId,
-                        data: episodeCharacters,
-                        loading: false,
-                        error: null,
-                    },
-                }));
+                actions.resolveResource("episodeCharacters", episodeId, episodeCharacters);
             })
             .catch((fetchError) => {
                 console.error(fetchError);
-                setState((prev) => ({
-                    ...prev,
-                    episodeCharacters: {
-                        key: episodeId,
-                        data: [],
-                        loading: false,
-                        error: "Failed to load episode characters",
-                    },
-                }));
+                actions.rejectResource("episodeCharacters", episodeId, "Failed to load episode characters", []);
             });
-    }, [episode, episodeCharactersState.data, episodeCharactersState.key, episodeCharactersState.loading, episodeId, setState]);
+    }, [actions, episode, episodeCharactersState.data, episodeCharactersState.key, episodeCharactersState.loading, episodeId]);
 
     return {
         characters: episodeCharactersState.key === episodeId ? episodeCharactersState.data ?? [] : [],
