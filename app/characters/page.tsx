@@ -9,7 +9,7 @@ import Link from "next/link";
 
 export default function Page() {
 
-    const characters = useCharacters()
+    const {characters, loading, error} = useCharacters()
 
     return (
         <div className={s.page}>
@@ -21,7 +21,12 @@ export default function Page() {
                 </section>
 
                 <section className={s.grid}>
-                    {characters && characters.map((character) => (
+                    {loading && <p className={s.subtitle}>Loading characters...</p>}
+                    {error && <p className={s.subtitle}>Error: {error}</p>}
+                    {characters && !loading && !error && characters.length === 0 && (
+                        <p className={s.subtitle}>Characters not found.</p>
+                    )}
+                    {characters && !loading && !error && characters.map((character) => (
                         <Link key={character.id} href={`/characters/${character.id}`} className={s.cardLink}>
                             <CharacterCard character={character}/>
                         </Link>

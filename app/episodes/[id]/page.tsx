@@ -30,7 +30,7 @@ export default function EpisodePage() {
             return;
         }
 
-        axios.get(`${process.env.NEXT_PUBLIC_RICK_AND_MORTY_API_URL}/character/${ids.join(",")}`)
+        axios.get(`/api/rickandmorty/character/${ids.join(",")}`)
             .then((res) => {
                 const data = Array.isArray(res.data) ? res.data : [res.data];
                 const episodeCharacters = data.map((character: EpisodeCharacter) => ({

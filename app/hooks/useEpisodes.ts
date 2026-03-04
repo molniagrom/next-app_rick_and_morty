@@ -11,7 +11,7 @@ export const useEpisodes = (search: string): Nullablen<EpisodeType[]> => {
 
         const fetchEpisodes = async () => {
             try {
-                const res = await axios.get(`${process.env.NEXT_PUBLIC_RICK_AND_MORTY_API_URL}/episode`, {
+                const res = await axios.get(`/api/rickandmorty/episode`, {
                     params: value ? (isCodeSearch ? {episode: value} : {name: value}) : undefined,
                 });
 
@@ -30,7 +30,7 @@ export const useEpisodes = (search: string): Nullablen<EpisodeType[]> => {
                 }
 
                 const charactersRes = await axios.get(
-                    `${process.env.NEXT_PUBLIC_RICK_AND_MORTY_API_URL}/character/${firstCharacterIds.join(",")}`
+                    `/api/rickandmorty/character/${firstCharacterIds.join(",")}`
                 );
                 const charactersData = Array.isArray(charactersRes.data) ? charactersRes.data : [charactersRes.data];
                 const imageById = new Map<string, string>(

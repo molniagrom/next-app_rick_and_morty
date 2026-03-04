@@ -19,7 +19,7 @@ export const useEpisode = (): { episode: Nullablen<EpisodeType>, loading: boolea
             return;
         }
 
-        axios.get(`${process.env.NEXT_PUBLIC_RICK_AND_MORTY_API_URL}/episode/${id}`)
+        axios.get(`/api/rickandmorty/episode/${id}`)
             .then((res) => {
                 setEpisode(res.data);
                 setError(null);

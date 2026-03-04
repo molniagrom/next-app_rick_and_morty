@@ -16,7 +16,7 @@ export const useCharacter = (): { character: Nullablen<CharacterType>, loading: 
 
     useEffect(() => {
         if (id) {
-            axios.get(`${process.env.NEXT_PUBLIC_RICK_AND_MORTY_API_URL}/character/${id}`)
+            axios.get(`/api/rickandmorty/character/${id}`)
                 .then(res => {
                     setCharacter(res.data);
                     setError(null);
