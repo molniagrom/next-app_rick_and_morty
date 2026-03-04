@@ -1,36 +1,65 @@
 "use client";
 
-import {useEffect, useState} from "react";
+import {useEffect} from "react";
 import axios from "axios";
 import {useParams} from "next/navigation";
-import {EpisodeType} from "@/app/hooks/useEpisodes";
-import {Nullablen} from "@/app/types/types";
+import {useRickAndMortyStore} from "@/app/store/RickAndMortyStore";
 
-export const useEpisode = (): { episode: Nullablen<EpisodeType>, loading: boolean, error: string | null } => {
-    const [episode, setEpisode] = useState<null | EpisodeType>(null);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState<string | null>(null);
-
+export const useEpisode = () => {
+    const {state, setState} = useRickAndMortyStore();
     const params = useParams();
-    const id = params?.id;
+    const id = String(params?.id ?? "");
+    const episodeState = state.episode;
 
     useEffect(() => {
         if (!id) {
             return;
         }
 
+        if (episodeState.key === id && (episodeState.loading || episodeState.data !== null)) {
+            return;
+        }
+
+        setState((prev) => ({
+            ...prev,
+            episode: {
+                ...prev.episode,
+                key: id,
+                data: null,
+                loading: true,
+                error: null,
+            },
+        }));
+
         axios.get(`/api/rickandmorty/episode/${id}`)
             .then((res) => {
-                setEpisode(res.data);
-                setError(null);
-                setLoading(false);
+                setState((prev) => ({
+                    ...prev,
+                    episode: {
+                        key: id,
+                        data: res.data,
+                        loading: false,
+                        error: null,
+                    },
+                }));
             })
             .catch((err) => {
                 console.error(err);
-                setError("Failed to load episode");
-                setLoading(false);
+                setState((prev) => ({
+                    ...prev,
+                    episode: {
+                        key: id,
+                        data: null,
+                        loading: false,
+                        error: "Failed to load episode",
+                    },
+                }));
             });
-    }, [id]);
+    }, [episodeState.data, episodeState.key, episodeState.loading, id, setState]);
 
-    return {episode, loading, error};
+    return {
+        episode: episodeState.key === id ? episodeState.data : null,
+        loading: id ? (episodeState.key === id ? episodeState.loading : true) : false,
+        error: episodeState.key === id ? episodeState.error : null,
+    };
 };

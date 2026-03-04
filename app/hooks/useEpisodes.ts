@@ -1,13 +1,31 @@
-import {useEffect, useState} from "react";
+import {useEffect} from "react";
 import axios from "axios";
-import {Nullablen} from "@/app/types/types";
+import {useRickAndMortyStore} from "@/app/store/RickAndMortyStore";
+import {EpisodeType} from "@/app/types/types";
 
-export const useEpisodes = (search: string): Nullablen<EpisodeType[]> => {
-    const [episodes, setEpisodes] = useState<null | EpisodeType[]>(null);
+export const useEpisodes = (search: string) => {
+    const {state, setState} = useRickAndMortyStore();
+    const episodesState = state.episodes;
 
     useEffect(() => {
         const value = search.trim();
+        const key = value.toLowerCase();
         const isCodeSearch = /^s\d{1,2}e\d{1,2}$/i.test(value);
+
+        if (episodesState.key === key && (episodesState.loading || episodesState.data !== null)) {
+            return;
+        }
+
+        setState((prev) => ({
+            ...prev,
+            episodes: {
+                ...prev.episodes,
+                key,
+                data: null,
+                loading: true,
+                error: null,
+            },
+        }));
 
         const fetchEpisodes = async () => {
             try {
@@ -25,7 +43,15 @@ export const useEpisodes = (search: string): Nullablen<EpisodeType[]> => {
                 );
 
                 if (firstCharacterIds.length === 0) {
-                    setEpisodes(fetchedEpisodes.map((episode) => ({...episode, previewImage: null})));
+                    setState((prev) => ({
+                        ...prev,
+                        episodes: {
+                            key,
+                            data: fetchedEpisodes.map((episode) => ({...episode, previewImage: null})),
+                            loading: false,
+                            error: null,
+                        },
+                    }));
                     return;
                 }
 
@@ -37,43 +63,60 @@ export const useEpisodes = (search: string): Nullablen<EpisodeType[]> => {
                     charactersData.map((character: CharacterPreviewType) => [String(character.id), character.image])
                 );
 
-                setEpisodes(
-                    fetchedEpisodes.map((episode) => {
-                        const firstId = episode.characters[0]?.split("/").at(-1);
-                        return {
-                            ...episode,
-                            previewImage: firstId ? imageById.get(firstId) ?? null : null,
-                        };
-                    })
-                );
+                setState((prev) => ({
+                    ...prev,
+                    episodes: {
+                        key,
+                        data: fetchedEpisodes.map((episode) => {
+                            const firstId = episode.characters[0]?.split("/").at(-1);
+                            return {
+                                ...episode,
+                                previewImage: firstId ? imageById.get(firstId) ?? null : null,
+                            };
+                        }),
+                        loading: false,
+                        error: null,
+                    },
+                }));
             } catch (error) {
                 if (axios.isAxiosError(error) && error.response?.status === 404) {
-                    setEpisodes([]);
+                    setState((prev) => ({
+                        ...prev,
+                        episodes: {
+                            key,
+                            data: [],
+                            loading: false,
+                            error: null,
+                        },
+                    }));
                     return;
                 }
                 console.error(error);
-                setEpisodes([]);
+                setState((prev) => ({
+                    ...prev,
+                    episodes: {
+                        key,
+                        data: [],
+                        loading: false,
+                        error: "Failed to load episodes",
+                    },
+                }));
             }
         };
 
         void fetchEpisodes();
-    }, [search]);
+    }, [episodesState.data, episodesState.key, episodesState.loading, search, setState]);
 
-    return episodes;
+    const normalizedSearch = search.trim().toLowerCase();
+
+    return {
+        episodes: episodesState.key === normalizedSearch ? episodesState.data : null,
+        loading: episodesState.key === normalizedSearch ? episodesState.loading : true,
+        error: episodesState.key === normalizedSearch ? episodesState.error : null,
+    };
 };
 
 type CharacterPreviewType = {
     id: number,
     image: string,
-}
-
-export type EpisodeType = {
-    id: number,
-    url: string,
-    name: string,
-    air_date: string,
-    episode: string,
-    characters: string[],
-    created: string,
-    previewImage?: string | null,
 }

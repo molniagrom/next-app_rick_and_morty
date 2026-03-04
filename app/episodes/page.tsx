@@ -9,7 +9,7 @@ import s from "./page.module.scss";
 export default function EpisodesPage() {
     const [inputValue, setInputValue] = React.useState("");
     const [query, setQuery] = React.useState("");
-    const episodes = useEpisodes(query);
+    const {episodes, loading, error} = useEpisodes(query);
 
     const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -31,13 +31,14 @@ export default function EpisodesPage() {
                     <button type="submit" className={s.searchButton}>Search</button>
                 </form>
 
-                {!episodes && <p className={s.state}>Loading episodes...</p>}
+                {loading && <p className={s.state}>Loading episodes...</p>}
+                {error && <p className={s.state}>Error: {error}</p>}
 
-                {episodes && episodes.length === 0 && (
+                {episodes && !loading && !error && episodes.length === 0 && (
                     <p className={s.state}>No episodes found for &quot;{query}&quot;.</p>
                 )}
 
-                {episodes && episodes.length > 0 && (
+                {episodes && !loading && !error && episodes.length > 0 && (
                     <div className={s.grid}>
                         {episodes.map((episode) => (
                             <Link key={episode.id} href={`/episodes/${episode.id}`} className={s.cardLink}>

@@ -1,48 +1,55 @@
-import {useEffect, useState} from "react";
+import {useEffect} from "react";
 import axios from "axios";
-import {Nullablen} from "@/app/types/types";
+import {useRickAndMortyStore} from "@/app/store/RickAndMortyStore";
 
-export const useCharacters = (): { characters: Nullablen<CharacterType[]>, loading: boolean, error: string | null } => {
-    const [characters, setCharacters] = useState<null | CharacterType[]>(null)
-    const [loading, setLoading] = useState(true)
-    const [error, setError] = useState<string | null>(null)
+export const useCharacters = () => {
+    const {state, setState} = useRickAndMortyStore();
+    const charactersState = state.characters;
 
     useEffect(() => {
+        if (charactersState.loading || charactersState.data !== null) {
+            return;
+        }
+
+        setState((prev) => ({
+            ...prev,
+            characters: {
+                ...prev.characters,
+                key: "all",
+                loading: true,
+                error: null,
+            },
+        }));
+
         axios.get(`/api/rickandmorty/character`)
             .then(res => {
-                setCharacters(res.data.results)
-                setError(null)
+                setState((prev) => ({
+                    ...prev,
+                    characters: {
+                        key: "all",
+                        data: res.data.results,
+                        loading: false,
+                        error: null,
+                    },
+                }));
             })
             .catch((fetchError) => {
                 console.error("Characters request failed:", fetchError);
-                setError("Failed to load characters")
-                setCharacters([])
-            })
-            .finally(() => {
-                setLoading(false)
-            })
-    }, []);
+                setState((prev) => ({
+                    ...prev,
+                    characters: {
+                        key: "all",
+                        data: [],
+                        loading: false,
+                        error: "Failed to load characters",
+                    },
+                }));
+            });
+    }, [charactersState.data, charactersState.loading, setState]);
 
-    return {characters, loading, error}
-}
-
-
-export type CharacterType = {
-    id: number,
-    name: string,
-    image: string,
-    status: string,
-    species: string,
-    type: string,
-    gender: string,
-    origin: {
-        name: string,
-        url: string,
-    },
-    location: {
-        name: string,
-        url: string,
-    },
-    episode: string[],
-    created: string,
+    return {
+        characters: charactersState.data,
+        loading: charactersState.loading || charactersState.data === null,
+        error: charactersState.error,
+    };
 }

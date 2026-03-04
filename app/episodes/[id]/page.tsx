@@ -1,49 +1,15 @@
 "use client";
 
 import React from "react";
-import axios from "axios";
 import Link from "next/link";
 import {HeadMeta} from "@/components/HeadMeta/HeadMeta";
 import {useEpisode} from "@/app/hooks/useEpisode";
+import {useEpisodeCharacters} from "@/app/hooks/useEpisodeCharacters";
 import s from "./page.module.scss";
-
-type EpisodeCharacter = {
-    id: number,
-    name: string,
-}
 
 export default function EpisodePage() {
     const {episode, loading, error} = useEpisode();
-    const [characters, setCharacters] = React.useState<EpisodeCharacter[]>([]);
-
-    React.useEffect(() => {
-        if (!episode) {
-            return;
-        }
-
-        const ids = episode.characters
-            .map((characterUrl) => characterUrl.split("/").at(-1))
-            .filter((id): id is string => Boolean(id));
-
-        if (ids.length === 0) {
-            setCharacters([]);
-            return;
-        }
-
-        axios.get(`/api/rickandmorty/character/${ids.join(",")}`)
-            .then((res) => {
-                const data = Array.isArray(res.data) ? res.data : [res.data];
-                const episodeCharacters = data.map((character: EpisodeCharacter) => ({
-                    id: character.id,
-                    name: character.name,
-                }));
-                setCharacters(episodeCharacters);
-            })
-            .catch((fetchError) => {
-                console.error(fetchError);
-                setCharacters([]);
-            });
-    }, [episode]);
+    const {characters, loading: charactersLoading, error: charactersError} = useEpisodeCharacters(episode);
 
     if (loading) {
         return (
@@ -80,8 +46,12 @@ export default function EpisodePage() {
 
                     <div className={s.charactersBlock}>
                         <span className={s.charactersLabel}>Characters in episode:</span>
-                        {characters.length === 0 && <p className={s.emptyCharacters}>No characters found.</p>}
-                        {characters.length > 0 && (
+                        {charactersLoading && <p className={s.emptyCharacters}>Loading characters...</p>}
+                        {charactersError && <p className={s.emptyCharacters}>Error: {charactersError}</p>}
+                        {!charactersLoading && !charactersError && characters.length === 0 && (
+                            <p className={s.emptyCharacters}>No characters found.</p>
+                        )}
+                        {!charactersLoading && !charactersError && characters.length > 0 && (
                             <ul className={s.charactersList}>
                                 {characters.map((character) => (
                                     <li key={character.id}>

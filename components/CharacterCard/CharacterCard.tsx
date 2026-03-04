@@ -1,7 +1,7 @@
 import React from "react";
-import {CharacterType} from "@/app/hooks/useCharacters";
 import Image from "next/image";
 import styles from "../CharacterCard.module.scss";
+import {CharacterType} from "@/app/types/types";
 
 type CharacterCardProps = {
     character: CharacterType
