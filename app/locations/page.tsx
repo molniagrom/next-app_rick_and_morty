@@ -5,40 +5,7 @@ import {useLocations} from "@/app/hooks/useLocations";
 import Link from "next/link";
 import s from "./page.module.scss";
 import {CustomSelect} from "@/components/CustomSelect/CustomSelect";
-
-const locationTypes = [
-    "Planet",
-    "Cluster",
-    "Space station",
-    "Microverse",
-    "TV",
-    "Resort",
-    "Fantasy town",
-    "Dream",
-    "Menagerie",
-    "Game",
-    "Customs",
-    "Daycare",
-    "Dwarf planet (Celestial Dwarf)",
-    "Miniverse",
-    "Teenyverse",
-    "Box",
-    "Spacecraft",
-];
-
-const locationDimensions = [
-    "Dimension C-137",
-    "Replacement Dimension",
-    "Cronenberg Dimension",
-    "Fantasy Dimension",
-    "Dimension 5-126",
-    "Dimension K-83",
-    "Dimension D-99",
-    "Dimension D716",
-    "Dimension D716-B",
-    "Dimension D716-C",
-    "unknown",
-];
+import {LOCATION_DIMENSIONS, LOCATION_TYPES} from "@/app/constants/locations";
 
 export default function LocationsPage() {
     const [inputValue, setInputValue] = React.useState("");
@@ -78,14 +45,14 @@ export default function LocationsPage() {
                         onChange={setInputType}
                         className={s.searchInput}
                         placeholder="All types"
-                        options={locationTypes.map((type) => ({value: type, label: type}))}
+                        options={LOCATION_TYPES.map((type) => ({value: type, label: type}))}
                     />
                     <CustomSelect
                         value={inputDimension}
                         onChange={setInputDimension}
                         className={s.searchInput}
                         placeholder="All dimensions"
-                        options={locationDimensions.map((dimension) => ({value: dimension, label: dimension}))}
+                        options={LOCATION_DIMENSIONS.map((dimension) => ({value: dimension, label: dimension}))}
                     />
                     <button type="submit" className={s.searchButton}>Search</button>
                 </form>

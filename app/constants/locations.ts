@@ -1,0 +1,33 @@
+export const LOCATION_TYPES = [
+    "Planet",
+    "Cluster",
+    "Space station",
+    "Microverse",
+    "TV",
+    "Resort",
+    "Fantasy town",
+    "Dream",
+    "Menagerie",
+    "Game",
+    "Customs",
+    "Daycare",
+    "Dwarf planet (Celestial Dwarf)",
+    "Miniverse",
+    "Teenyverse",
+    "Box",
+    "Spacecraft",
+] as const;
+
+export const LOCATION_DIMENSIONS = [
+    "Dimension C-137",
+    "Replacement Dimension",
+    "Cronenberg Dimension",
+    "Fantasy Dimension",
+    "Dimension 5-126",
+    "Dimension K-83",
+    "Dimension D-99",
+    "Dimension D716",
+    "Dimension D716-B",
+    "Dimension D716-C",
+    "unknown",
+] as const;
