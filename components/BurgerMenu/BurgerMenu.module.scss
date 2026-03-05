@@ -1,0 +1,95 @@
+.burgerRoot {
+    position: relative;
+    z-index: 60;
+}
+
+.burgerButton {
+    width: 46px;
+    height: 46px;
+    border: 1px solid rgba(0, 238, 255, 0.35);
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.06);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    cursor: pointer;
+}
+
+.burgerLine {
+    width: 22px;
+    height: 2px;
+    background: #00eeff;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.burgerButtonOpen .burgerLine:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+}
+
+.burgerButtonOpen .burgerLine:nth-child(2) {
+    opacity: 0;
+}
+
+.burgerButtonOpen .burgerLine:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+}
+
+.overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(3, 10, 20, 0.58);
+    backdrop-filter: blur(7px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: overlayIn 0.22s ease;
+    z-index: 45;
+}
+
+.menuPanel {
+    width: min(420px, calc(100vw - 40px));
+    padding: 14px;
+    border: 1px solid rgba(0, 238, 255, 0.28);
+    border-radius: 16px;
+    background: rgba(10, 26, 48, 0.88);
+    backdrop-filter: blur(8px);
+    animation: panelIn 0.22s ease;
+}
+
+.menuLinks {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.menuLink {
+    text-decoration: none;
+    color: #001a1f;
+    background: linear-gradient(45deg, #00eeff, #00ff9d);
+    border-radius: 999px;
+    padding: 9px 14px;
+    font-weight: 700;
+    text-align: center;
+}
+
+@keyframes overlayIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes panelIn {
+    from {
+        opacity: 0;
+        transform: translateY(-8px) scale(0.98);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
