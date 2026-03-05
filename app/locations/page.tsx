@@ -4,6 +4,7 @@ import React from "react";
 import {useLocations} from "@/app/hooks/useLocations";
 import Link from "next/link";
 import s from "./page.module.scss";
+import {CustomSelect} from "@/components/CustomSelect/CustomSelect";
 
 const locationTypes = [
     "Planet",
@@ -72,26 +73,20 @@ export default function LocationsPage() {
                         className={s.searchInput}
                         placeholder="Search by name"
                     />
-                    <select
+                    <CustomSelect
                         value={inputType}
-                        onChange={(e) => setInputType(e.target.value)}
+                        onChange={setInputType}
                         className={s.searchInput}
-                    >
-                        <option value="">All types</option>
-                        {locationTypes.map((type) => (
-                            <option key={type} value={type}>{type}</option>
-                        ))}
-                    </select>
-                    <select
+                        placeholder="All types"
+                        options={locationTypes.map((type) => ({value: type, label: type}))}
+                    />
+                    <CustomSelect
                         value={inputDimension}
-                        onChange={(e) => setInputDimension(e.target.value)}
+                        onChange={setInputDimension}
                         className={s.searchInput}
-                    >
-                        <option value="">All dimensions</option>
-                        {locationDimensions.map((dimension) => (
-                            <option key={dimension} value={dimension}>{dimension}</option>
-                        ))}
-                    </select>
+                        placeholder="All dimensions"
+                        options={locationDimensions.map((dimension) => ({value: dimension, label: dimension}))}
+                    />
                     <button type="submit" className={s.searchButton}>Search</button>
                 </form>
 

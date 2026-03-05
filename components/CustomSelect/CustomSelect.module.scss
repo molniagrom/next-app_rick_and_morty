@@ -1,0 +1,97 @@
+.wrapper {
+    position: relative;
+    flex: 1;
+    min-width: 220px;
+}
+
+.trigger {
+    width: 100%;
+    border: 1px solid rgba(0, 238, 255, 0.35);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.07);
+    color: #eafcff;
+    padding: 10px 14px;
+    outline: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.triggerOpen {
+    border-color: rgba(0, 238, 255, 0.7);
+    box-shadow: 0 0 0 2px rgba(0, 238, 255, 0.15);
+}
+
+.value {
+    color: #eafcff;
+}
+
+.placeholder {
+    color: #98c7d8;
+}
+
+.chevron {
+    width: 8px;
+    height: 8px;
+    border-right: 2px solid #00eeff;
+    border-bottom: 2px solid #00eeff;
+    transform: rotate(45deg);
+    transition: transform 0.2s ease;
+    margin-right: 4px;
+}
+
+.chevronOpen {
+    transform: rotate(-135deg);
+}
+
+.menu {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    right: 0;
+    margin: 0;
+    padding: 6px;
+    list-style: none;
+    border: 1px solid rgba(0, 238, 255, 0.28);
+    border-radius: 12px;
+    background: rgba(10, 26, 48, 0.96);
+    backdrop-filter: blur(8px);
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transform: translateY(-6px);
+    transition: max-height 0.25s ease, opacity 0.2s ease, transform 0.2s ease;
+    pointer-events: none;
+    z-index: 20;
+}
+
+.menuOpen {
+    max-height: 280px;
+    opacity: 1;
+    overflow-y: auto;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+.option {
+    width: 100%;
+    border: none;
+    border-radius: 8px;
+    background: transparent;
+    color: #eafcff;
+    text-align: left;
+    padding: 9px 10px;
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease;
+}
+
+.option:hover {
+    background: rgba(0, 238, 255, 0.14);
+}
+
+.selected {
+    background: rgba(0, 238, 255, 0.2);
+    color: #b8feff;
+}
