@@ -1,6 +1,6 @@
 ﻿"use client";
 
-import React, {useEffect, useMemo} from "react";
+import React, {Suspense, useEffect, useMemo} from "react";
 import {HeadMeta} from "@/components/HeadMeta/HeadMeta";
 import {useAllCharacters} from "@/app/hooks/useAllCharacters";
 import {useGeneticDataQueryState} from "@/app/genetic-data/hooks/useGeneticDataQueryState";
@@ -24,7 +24,7 @@ import {AnomaliesPanel} from "@/app/genetic-data/components/AnomaliesPanel";
 import {Pagination} from "@/app/genetic-data/components/Pagination";
 import s from "./page.module.scss";
 
-export default function GeneticDataPage() {
+const GeneticDataPageContent = () => {
     const {characters, loading, error} = useAllCharacters();
     const {state, updateParams} = useGeneticDataQueryState();
 
@@ -150,5 +150,26 @@ export default function GeneticDataPage() {
                 )}
             </section>
         </main>
+    );
+};
+
+export default function GeneticDataPage() {
+    return (
+        <Suspense
+            fallback={
+                <main className={s.page}>
+                    <section className={s.container}>
+                        <h1 className={s.title}>Genetic Data</h1>
+                        <div className={s.skeletonGrid}>
+                            {Array.from({length: 6}).map((_, index) => (
+                                <div key={index} className={s.skeleton}/>
+                            ))}
+                        </div>
+                    </section>
+                </main>
+            }
+        >
+            <GeneticDataPageContent/>
+        </Suspense>
     );
 }
