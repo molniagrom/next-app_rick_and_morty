@@ -3,23 +3,30 @@ import axios from "axios";
 import {LocationsPayload} from "@/app/types/types";
 import {useRickAndMortyStore} from "@/app/store/RickAndMortyStore";
 
-export const useLocations = (query: string, page: number) => {
+export const useLocations = (query: string, page: number, type: string, dimension: string) => {
     const {state, actions} = useRickAndMortyStore();
     const locationsState = state.locations;
     const trimmedQuery = query.trim();
-    const key = useMemo(() => `${trimmedQuery.toLowerCase()}|${page}`, [trimmedQuery, page]);
-debugger
+    const trimmedType = type.trim();
+    const trimmedDimension = dimension.trim();
+    const key = useMemo(
+        () => `${trimmedQuery.toLowerCase()}|${trimmedType.toLowerCase()}|${trimmedDimension.toLowerCase()}|${page}`,
+        [page, trimmedDimension, trimmedQuery, trimmedType]
+    );
+
     useEffect(() => {
         if (locationsState.key === key && (locationsState.loading || locationsState.data !== null)) {
             return;
         }
-debugger
+
         actions.beginResource("locations", key);
 
         axios.get(`/api/rickandmorty/location`, {
             params: {
                 page,
                 ...(trimmedQuery ? {name: trimmedQuery} : {}),
+                ...(trimmedType ? {type: trimmedType} : {}),
+                ...(trimmedDimension ? {dimension: trimmedDimension} : {}),
             },
         })
             .then((res) => {
@@ -50,7 +57,17 @@ debugger
                     results: [],
                 });
             });
-    }, [actions, key, locationsState.data, locationsState.key, locationsState.loading, page, trimmedQuery]);
+    }, [
+        actions,
+        key,
+        locationsState.data,
+        locationsState.key,
+        locationsState.loading,
+        page,
+        trimmedDimension,
+        trimmedQuery,
+        trimmedType,
+    ]);
 
     return {
         locations: locationsState.key === key ? locationsState.data : null,

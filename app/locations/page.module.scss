@@ -29,7 +29,7 @@
 
 .searchForm {
     margin: 0 auto 16px;
-    max-width: 680px;
+    max-width: 1100px;
     display: flex;
     gap: 10px;
 }
@@ -48,6 +48,10 @@
     color: #98c7d8;
 }
 
+select.searchInput {
+    cursor: pointer;
+}
+
 .searchButton {
     border: none;
     border-radius: 999px;
@@ -62,6 +66,11 @@
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
     gap: 14px;
+}
+
+.cardLink {
+    text-decoration: none;
+    display: block;
 }
 
 .card {
@@ -118,5 +127,9 @@
 @media (max-width: 768px) {
     .searchForm {
         flex-direction: column;
+    }
+
+    .searchButton {
+        width: 100%;
     }
 }
