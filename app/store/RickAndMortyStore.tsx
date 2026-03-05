@@ -1,46 +1,15 @@
 "use client";
 
-import {createContext, Dispatch, PropsWithChildren, SetStateAction, useContext, useMemo, useState} from "react";
-import {CharacterType, EpisodeCharacter, EpisodeType, LocationsPayload, LocationType, ResourceState} from "@/app/types/types";
-
-export type RickAndMortyState = {
-    characters: ResourceState<CharacterType[]>,
-    character: ResourceState<CharacterType>,
-    episodes: ResourceState<EpisodeType[]>,
-    episode: ResourceState<EpisodeType>,
-    episodeCharacters: ResourceState<EpisodeCharacter[]>,
-    locations: ResourceState<LocationsPayload>,
-    location: ResourceState<LocationType>,
-}
-
-type RickAndMortyStoreValue = {
-    state: RickAndMortyState,
-    setState: Dispatch<SetStateAction<RickAndMortyState>>,
-    actions: RickAndMortyStoreActions,
-}
-
-type ResourceMap = {
-    characters: CharacterType[],
-    character: CharacterType,
-    episodes: EpisodeType[],
-    episode: EpisodeType,
-    episodeCharacters: EpisodeCharacter[],
-    locations: LocationsPayload,
-    location: LocationType,
-}
-
-type ResourceKey = keyof ResourceMap;
-
-type RickAndMortyStoreActions = {
-    beginResource: <K extends ResourceKey>(resource: K, key: string, resetData?: boolean) => void,
-    resolveResource: <K extends ResourceKey>(resource: K, key: string, data: ResourceMap[K]) => void,
-    rejectResource: <K extends ResourceKey>(
-        resource: K,
-        key: string,
-        error: string,
-        fallbackData: ResourceMap[K] | null
-    ) => void,
-}
+import {createContext, PropsWithChildren, useContext, useMemo, useState} from "react";
+import {
+    CharacterType,
+    EpisodeCharacter,
+    EpisodeType,
+    LocationsPayload,
+    LocationType,
+    ResourceState
+} from "@/app/types/types";
+import {RickAndMortyState, RickAndMortyStoreActions, RickAndMortyStoreValue} from "@/app/types/TypeRickAndMortyStore";
 
 const emptyResource = <T,>(): ResourceState<T> => ({
     key: null,
