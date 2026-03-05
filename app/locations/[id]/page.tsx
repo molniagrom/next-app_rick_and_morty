@@ -1,5 +1,7 @@
 "use client";
 
+import React from "react";
+import axios from "axios";
 import Link from "next/link";
 import {HeadMeta} from "@/components/HeadMeta/HeadMeta";
 import {useLocation} from "@/app/hooks/useLocation";
@@ -7,6 +9,43 @@ import s from "./page.module.scss";
 
 export default function LocationPage() {
     const {location, loading, error} = useLocation();
+    const [residentNames, setResidentNames] = React.useState<Record<string, string>>({});
+    const [residentsLoading, setResidentsLoading] = React.useState(false);
+
+    React.useEffect(() => {
+        if (!location) {
+            return;
+        }
+
+        const residentIds = location.residents
+            .map((residentUrl) => residentUrl.split("/").at(-1))
+            .filter((id): id is string => Boolean(id));
+
+        if (residentIds.length === 0) {
+            setResidentNames({});
+            return;
+        }
+
+        setResidentsLoading(true);
+        axios.get(`/api/rickandmorty/character/${residentIds.join(",")}`)
+            .then((res) => {
+                const data = Array.isArray(res.data) ? res.data : [res.data];
+                const namesById: Record<string, string> = {};
+
+                data.forEach((character: { id: number, name: string }) => {
+                    namesById[String(character.id)] = character.name;
+                });
+
+                setResidentNames(namesById);
+            })
+            .catch((fetchError) => {
+                console.error(fetchError);
+                setResidentNames({});
+            })
+            .finally(() => {
+                setResidentsLoading(false);
+            });
+    }, [location]);
 
     if (loading) {
         return (
@@ -45,7 +84,8 @@ export default function LocationPage() {
                     <div className={s.residentsBlock}>
                         <span className={s.residentsLabel}>Residents links:</span>
                         {location.residents.length === 0 && <p className={s.emptyResidents}>No residents found.</p>}
-                        {location.residents.length > 0 && (
+                        {residentsLoading && <p className={s.emptyResidents}>Loading residents...</p>}
+                        {location.residents.length > 0 && !residentsLoading && (
                             <ul className={s.residentsList}>
                                 {location.residents.map((residentUrl) => {
                                     const residentId = residentUrl.split("/").at(-1);
@@ -56,7 +96,7 @@ export default function LocationPage() {
                                     return (
                                         <li key={residentUrl}>
                                             <Link href={`/characters/${residentId}`} className={s.characterLink}>
-                                                Character #{residentId}
+                                                {residentNames[residentId] ?? `Character #${residentId}`}
                                             </Link>
                                         </li>
                                     );
