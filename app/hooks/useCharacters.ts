@@ -1,6 +1,7 @@
 import {useEffect} from "react";
-import axios from "axios";
 import {useRickAndMortyStore} from "@/app/store/RickAndMortyStore";
+import {getCharactersPage} from "@/app/lib/charactersApi";
+import {isAbortError, toUserMessage} from "@/app/lib/errors";
 
 export const useCharacters = () => {
     const {state, actions} = useRickAndMortyStore();
@@ -12,15 +13,32 @@ export const useCharacters = () => {
         }
 
         actions.beginResource("characters", "all", false);
+        const controller = new AbortController();
 
-        axios.get(`/api/rickandmorty/character`)
-            .then(res => {
-                actions.resolveResource("characters", "all", res.data.results);
+        getCharactersPage(1, {signal: controller.signal, retries: 2, delay: 250})
+            .then((payload) => {
+                if (controller.signal.aborted) {
+                    return;
+                }
+                actions.resolveResource("characters", "all", payload.results);
             })
             .catch((fetchError) => {
+                if (isAbortError(fetchError) || controller.signal.aborted) {
+                    return;
+                }
+
                 console.error("Characters request failed:", fetchError);
-                actions.rejectResource("characters", "all", "Failed to load characters", []);
+                actions.rejectResource(
+                    "characters",
+                    "all",
+                    toUserMessage(fetchError, "Failed to load characters") ?? "Failed to load characters",
+                    []
+                );
             });
+
+        return () => {
+            controller.abort();
+        };
     }, [actions, charactersState.data, charactersState.loading]);
 
     return {
