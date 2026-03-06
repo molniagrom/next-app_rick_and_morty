@@ -167,6 +167,8 @@
     padding: 12px;
     background: rgba(255, 255, 255, 0.08);
     border: 1px solid rgba(255, 255, 255, 0.12);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    cursor: pointer;
 }
 
 .anomalyCard h3 {
@@ -181,6 +183,13 @@
 
 .anomalyCard span {
     font-weight: 700;
+}
+
+.cardLink:hover .anomalyCard,
+.cardLink:focus-visible .anomalyCard {
+    transform: translateY(-4px);
+    border-color: rgba(0, 238, 255, 0.55);
+    box-shadow: 0 10px 24px rgba(0, 238, 255, 0.18);
 }
 
 .pagination {

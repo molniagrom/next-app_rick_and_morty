@@ -1,0 +1,88 @@
+.page {
+    min-height: calc(100vh - 220px);
+    padding: 24px;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.backLink {
+    display: inline-block;
+    color: #9defff;
+    text-decoration: none;
+    margin-bottom: 10px;
+}
+
+.backLink:hover {
+    text-decoration: underline;
+}
+
+.title {
+    margin: 0 0 8px;
+    font-size: clamp(1.8rem, 3vw, 2.4rem);
+    font-weight: 800;
+    background: linear-gradient(45deg, #00eeff, #00ff9d);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.subtitle {
+    margin: 0 0 18px;
+    color: #c9e6f2;
+}
+
+.metrics {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(130px, 1fr));
+    gap: 10px;
+    margin-bottom: 18px;
+}
+
+.metric {
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 10px;
+}
+
+.metric span {
+    display: block;
+    color: #c9e6f2;
+    font-size: 12px;
+}
+
+.metric strong {
+    color: #ffffff;
+    font-size: 18px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 14px;
+}
+
+.cardLink {
+    text-decoration: none;
+}
+
+.state {
+    margin: 0;
+    color: #d7f0ff;
+}
+
+@media (max-width: 1024px) {
+    .metrics {
+        grid-template-columns: repeat(3, minmax(130px, 1fr));
+    }
+}
+
+@media (max-width: 680px) {
+    .metrics {
+        grid-template-columns: repeat(2, minmax(130px, 1fr));
+    }
+}
