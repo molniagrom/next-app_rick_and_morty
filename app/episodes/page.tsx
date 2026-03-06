@@ -7,18 +7,19 @@ import {Pagination} from "@/components/Pagination/Pagination";
 import {useRickAndMortyStore} from "@/app/store/RickAndMortyStore";
 import {EpisodeCard} from "@/components/EpisodeCard/EpisodeCard";
 import {Loader} from "@/components/Loader/Loader";
+import {SearchFormEpisode} from "@/app/episodes/components/SearchFormEpisode";
 import s from "./page.module.scss";
 
 const EPISODES_PAGE_SIZE = 12;
 
 export default function EpisodesPage() {
-    const [inputValue, setInputValue] = React.useState("");
     const [query, setQuery] = React.useState("");
     const [page, setPage] = React.useState(1);
     const {episodes, loading, error} = useEpisodes(query);
     const {state, actions} = useRickAndMortyStore();
     const totalPages = Math.max(1, Math.ceil((episodes?.length ?? 0) / EPISODES_PAGE_SIZE));
     const currentPage = Math.min(page, totalPages);
+
     const favoriteEpisodeIds = useMemo(
         () => new Set(state.favorites.episodes.map((episode) => episode.id)),
         [state.favorites.episodes]
@@ -33,9 +34,8 @@ export default function EpisodesPage() {
         return episodes.slice(start, start + EPISODES_PAGE_SIZE);
     }, [currentPage, episodes]);
 
-    const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        setQuery(inputValue.trim());
+    const onSearch = (nextQuery: string) => {
+        setQuery(nextQuery);
         setPage(1);
     };
 
@@ -44,15 +44,9 @@ export default function EpisodesPage() {
             <section className={s.container}>
                 <h1 className={s.title}>Episodes</h1>
 
-                <form className={s.searchForm} onSubmit={onSubmit}>
-                    <input
-                        value={inputValue}
-                        onChange={(e) => setInputValue(e.target.value)}
-                        className={s.searchInput}
-                        placeholder="Search by name or code (e.g. S01E01)"
-                    />
-                    <button type="submit" className={s.searchButton}>Search</button>
-                </form>
+                <SearchFormEpisode
+                    onSearch={onSearch}
+                />
 
                 {loading && <p className={s.state}><Loader label="Loading episodes"/></p>}
                 {error && <p className={s.state}>Error: {error}</p>}

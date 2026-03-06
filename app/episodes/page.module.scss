@@ -27,37 +27,6 @@
     color: #c9e6f2;
 }
 
-.searchForm {
-    margin: 0 auto 16px;
-    max-width: 680px;
-    display: flex;
-    gap: 10px;
-}
-
-.searchInput {
-    flex: 1;
-    border: 1px solid rgba(0, 238, 255, 0.35);
-    border-radius: 999px;
-    background: rgba(255, 255, 255, 0.07);
-    color: #eafcff;
-    padding: 10px 14px;
-    outline: none;
-}
-
-.searchInput::placeholder {
-    color: #98c7d8;
-}
-
-.searchButton {
-    border: none;
-    border-radius: 999px;
-    padding: 10px 16px;
-    cursor: pointer;
-    font-weight: 700;
-    color: #001a1f;
-    background: linear-gradient(45deg, #00eeff, #00ff9d);
-}
-
 .grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
@@ -67,10 +36,4 @@
 .cardLink {
     text-decoration: none;
     display: block;
-}
-
-@media (max-width: 768px) {
-    .searchForm {
-        flex-direction: column;
-    }
 }
