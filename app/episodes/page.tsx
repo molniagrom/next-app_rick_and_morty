@@ -2,11 +2,10 @@
 
 import React, {useMemo} from "react";
 import Link from "next/link";
-import Image from "next/image";
 import {useEpisodes} from "@/app/hooks/useEpisodes";
 import {Pagination} from "@/components/Pagination/Pagination";
 import {useRickAndMortyStore} from "@/app/store/RickAndMortyStore";
-import {FavoriteButton} from "@/components/FavoriteButton/FavoriteButton";
+import {EpisodeCard} from "@/components/EpisodeCard/EpisodeCard";
 import s from "./page.module.scss";
 
 const EPISODES_PAGE_SIZE = 12;
@@ -66,34 +65,15 @@ export default function EpisodesPage() {
                         <div className={s.grid}>
                             {paginatedEpisodes.map((episode) => (
                                 <Link key={episode.id} href={`/episodes/${episode.id}`} className={s.cardLink}>
-                                    <article className={s.card}>
-                                        {/*For now, the server sends only one placeholder image for all episodes. */}
-                                        {episode.previewImage ? (
-                                            <Image
-                                                src={episode.previewImage}
-                                                alt={`Episode ${episode.name}`}
-                                                width={320}
-                                                height={180}
-                                                className={s.previewImage}
-                                            />
-                                        ) : (
-                                            <div className={s.previewFallback}>No image</div>
-                                        )}
-                                        <h2>{episode.name}</h2>
-                                        <p><span>Code:</span> {episode.episode}</p>
-                                        <p><span>Air date:</span> {episode.air_date}</p>
-                                        <FavoriteButton
-                                            active={favoriteEpisodeIds.has(episode.id)}
-                                            onClick={(event) => {
-                                                event.preventDefault();
-                                                event.stopPropagation();
-                                                actions.toggleFavoriteEpisode(episode);
-                                            }}
-                                            title={favoriteEpisodeIds.has(episode.id)
-                                                ? "Remove episode from favorites"
-                                                : "Add episode to favorites"}
-                                        />
-                                    </article>
+                                    <EpisodeCard
+                                        episode={episode}
+                                        isFavorite={favoriteEpisodeIds.has(episode.id)}
+                                        onToggleFavorite={(event) => {
+                                            event.preventDefault();
+                                            event.stopPropagation();
+                                            actions.toggleFavoriteEpisode(episode);
+                                        }}
+                                    />
                                 </Link>
                             ))}
                         </div>

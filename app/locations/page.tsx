@@ -8,7 +8,7 @@ import {CustomSelect} from "@/components/CustomSelect/CustomSelect";
 import {LOCATION_DIMENSIONS, LOCATION_TYPES} from "@/app/constants/locations";
 import {Pagination} from "@/components/Pagination/Pagination";
 import {useRickAndMortyStore} from "@/app/store/RickAndMortyStore";
-import {FavoriteButton} from "@/components/FavoriteButton/FavoriteButton";
+import {LocationCard} from "@/components/LocationCard/LocationCard";
 
 export default function LocationsPage() {
     const [inputValue, setInputValue] = React.useState("");
@@ -74,23 +74,15 @@ export default function LocationsPage() {
                         <div className={s.grid}>
                             {locations.results.map((location) => (
                                 <Link key={location.id} href={`/locations/${location.id}`} className={s.cardLink}>
-                                    <article className={s.card}>
-                                        <h2>{location.name}</h2>
-                                        <p><span>Type:</span> {location.type || "Unknown"}</p>
-                                        <p><span>Dimension:</span> {location.dimension || "Unknown"}</p>
-                                        <p><span>Residents:</span> {location.residents.length}</p>
-                                        <FavoriteButton
-                                            active={favoriteLocationIds.has(location.id)}
-                                            onClick={(event) => {
-                                                event.preventDefault();
-                                                event.stopPropagation();
-                                                actions.toggleFavoriteLocation(location);
-                                            }}
-                                            title={favoriteLocationIds.has(location.id)
-                                                ? "Remove location from favorites"
-                                                : "Add location to favorites"}
-                                        />
-                                    </article>
+                                    <LocationCard
+                                        location={location}
+                                        isFavorite={favoriteLocationIds.has(location.id)}
+                                        onToggleFavorite={(event) => {
+                                            event.preventDefault();
+                                            event.stopPropagation();
+                                            actions.toggleFavoriteLocation(location);
+                                        }}
+                                    />
                                 </Link>
                             ))}
                         </div>

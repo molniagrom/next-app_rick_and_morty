@@ -1,0 +1,24 @@
+.card {
+    border: 1px solid rgba(0, 238, 255, 0.3);
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(8px);
+    padding: 14px 14px 54px;
+    color: #eafcff;
+    position: relative;
+}
+
+.card h2 {
+    margin: 0 0 10px;
+    font-size: 1.1rem;
+    color: #00eeff;
+}
+
+.card p {
+    margin: 6px 0;
+    font-size: 0.95rem;
+}
+
+.card span {
+    color: #98c7d8;
+}

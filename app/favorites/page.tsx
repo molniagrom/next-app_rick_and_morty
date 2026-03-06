@@ -2,12 +2,12 @@
 
 import React from "react";
 import Link from "next/link";
-import Image from "next/image";
 import {HeadMeta} from "@/components/HeadMeta/HeadMeta";
 import CharacterCard from "@/components/CharacterCard/CharacterCard";
 import {useRickAndMortyStore} from "@/app/store/RickAndMortyStore";
-import {FavoriteButton} from "@/components/FavoriteButton/FavoriteButton";
 import {FavoritesTab, FavoritesTabs} from "@/app/favorites/components/FavoritesTabs";
+import {LocationCard} from "@/components/LocationCard/LocationCard";
+import {EpisodeCard} from "@/components/EpisodeCard/EpisodeCard";
 import s from "./page.module.scss";
 
 const FAVORITES_TABS = [
@@ -61,21 +61,15 @@ export default function FavoritesPage() {
                             <section className={s.grid}>
                                 {state.favorites.locations.map((location) => (
                                     <Link key={location.id} href={`/locations/${location.id}`} className={s.cardLink}>
-                                        <article className={s.card}>
-                                            <h2>{location.name}</h2>
-                                            <p><span>Type:</span> {location.type || "Unknown"}</p>
-                                            <p><span>Dimension:</span> {location.dimension || "Unknown"}</p>
-                                            <p><span>Residents:</span> {location.residents.length}</p>
-                                            <FavoriteButton
-                                                active
-                                                onClick={(event) => {
-                                                    event.preventDefault();
-                                                    event.stopPropagation();
-                                                    actions.toggleFavoriteLocation(location);
-                                                }}
-                                                title="Remove location from favorites"
-                                            />
-                                        </article>
+                                        <LocationCard
+                                            location={location}
+                                            isFavorite
+                                            onToggleFavorite={(event) => {
+                                                event.preventDefault();
+                                                event.stopPropagation();
+                                                actions.toggleFavoriteLocation(location);
+                                            }}
+                                        />
                                     </Link>
                                 ))}
                             </section>
@@ -91,37 +85,23 @@ export default function FavoritesPage() {
                             <section className={s.grid}>
                                 {state.favorites.episodes.map((episode) => (
                                     <Link key={episode.id} href={`/episodes/${episode.id}`} className={s.cardLink}>
-                                        <article className={s.card}>
-                                            {episode.previewImage ? (
-                                                <Image
-                                                    src={episode.previewImage}
-                                                    alt={`Episode ${episode.name}`}
-                                                    width={320}
-                                                    height={180}
-                                                    className={s.previewImage}
-                                                />
-                                            ) : (
-                                                <div className={s.previewFallback}>No image</div>
-                                            )}
-                                            <h2>{episode.name}</h2>
-                                            <p><span>Code:</span> {episode.episode}</p>
-                                            <p><span>Air date:</span> {episode.air_date}</p>
-                                            <FavoriteButton
-                                                active
-                                                onClick={(event) => {
-                                                    event.preventDefault();
-                                                    event.stopPropagation();
-                                                    actions.toggleFavoriteEpisode(episode);
-                                                }}
-                                                title="Remove episode from favorites"
-                                            />
-                                        </article>
+                                        <EpisodeCard
+                                            episode={episode}
+                                            isFavorite
+                                            onToggleFavorite={(event) => {
+                                                event.preventDefault();
+                                                event.stopPropagation();
+                                                actions.toggleFavoriteEpisode(episode);
+                                            }}
+                                        />
                                     </Link>
                                 ))}
                             </section>
                         )}
                     </>
                 )}
+
+
             </section>
         </main>
     );

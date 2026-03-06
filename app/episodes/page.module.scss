@@ -69,53 +69,6 @@
     display: block;
 }
 
-.card {
-    border: 1px solid rgba(0, 238, 255, 0.3);
-    border-radius: 12px;
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(8px);
-    padding: 12px 12px 52px;
-    color: #eafcff;
-    position: relative;
-}
-
-.previewImage,
-.previewFallback {
-    width: 100%;
-    height: auto;
-    aspect-ratio: 16 / 9;
-    border-radius: 10px;
-    margin-bottom: 10px;
-}
-
-.previewImage {
-    object-fit: cover;
-}
-
-.previewFallback {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #98c7d8;
-    border: 1px dashed rgba(0, 238, 255, 0.35);
-    background: rgba(255, 255, 255, 0.03);
-}
-
-.card h2 {
-    margin: 0 0 10px;
-    font-size: 1.1rem;
-    color: #00eeff;
-}
-
-.card p {
-    margin: 6px 0;
-    font-size: 0.95rem;
-}
-
-.card span {
-    color: #98c7d8;
-}
-
 @media (max-width: 768px) {
     .searchForm {
         flex-direction: column;
