@@ -6,6 +6,7 @@ type PaginationProps = {
     onSetPage: (page: number) => void;
     disablePrevious?: boolean;
     disableNext?: boolean;
+    scrollToTopOnChange?: boolean;
 }
 
 export const Pagination = ({
@@ -14,6 +15,7 @@ export const Pagination = ({
     onSetPage,
     disablePrevious,
     disableNext,
+    scrollToTopOnChange = true,
 }: PaginationProps) => {
     if (totalPages <= 1) {
         return null;
@@ -22,12 +24,20 @@ export const Pagination = ({
     const isPreviousDisabled = disablePrevious ?? currentPage <= 1;
     const isNextDisabled = disableNext ?? currentPage >= totalPages;
 
+    const changePage = (nextPage: number) => {
+        if (scrollToTopOnChange && typeof window !== "undefined") {
+            window.scrollTo({top: 0, behavior: "smooth"});
+        }
+
+        onSetPage(nextPage);
+    };
+
     return (
         <div className={s.pagination}>
             <button
                 type="button"
                 className={s.pageButton}
-                onClick={() => onSetPage(currentPage - 1)}
+                onClick={() => changePage(currentPage - 1)}
                 disabled={isPreviousDisabled}
             >
                 Previous
@@ -36,7 +46,7 @@ export const Pagination = ({
             <button
                 type="button"
                 className={s.pageButton}
-                onClick={() => onSetPage(currentPage + 1)}
+                onClick={() => changePage(currentPage + 1)}
                 disabled={isNextDisabled}
             >
                 Next
