@@ -6,6 +6,7 @@ import Link from "next/link";
 import s from "./page.module.scss";
 import {CustomSelect} from "@/components/CustomSelect/CustomSelect";
 import {LOCATION_DIMENSIONS, LOCATION_TYPES} from "@/app/constants/locations";
+import {Pagination} from "@/components/Pagination/Pagination";
 
 export default function LocationsPage() {
     const [inputValue, setInputValue] = React.useState("");
@@ -24,9 +25,6 @@ export default function LocationsPage() {
         setDimension(inputDimension.trim());
         setPage(1);
     };
-
-    const onPrevPage = () => setPage((prev) => Math.max(1, prev - 1));
-    const onNextPage = () => setPage((prev) => prev + 1);
 
     return (
         <main className={s.page}>
@@ -79,27 +77,13 @@ export default function LocationsPage() {
                             ))}
                         </div>
 
-                        <div className={s.pagination}>
-                            <button
-                                type="button"
-                                className={s.pageButton}
-                                onClick={onPrevPage}
-                                disabled={!locations.info.prev}
-                            >
-                                Previous
-                            </button>
-                            <span className={s.pageInfo}>
-                                Page {page} of {locations.info.pages || 1}
-                            </span>
-                            <button
-                                type="button"
-                                className={s.pageButton}
-                                onClick={onNextPage}
-                                disabled={!locations.info.next}
-                            >
-                                Next
-                            </button>
-                        </div>
+                        <Pagination
+                            currentPage={page}
+                            totalPages={locations.info.pages || 1}
+                            onSetPage={(nextPage) => setPage(Math.max(1, Math.min(nextPage, locations.info.pages || 1)))}
+                            disablePrevious={!locations.info.prev}
+                            disableNext={!locations.info.next}
+                        />
                     </>
                 )}
             </section>

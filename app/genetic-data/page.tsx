@@ -21,7 +21,7 @@ import {Tabs} from "@/app/genetic-data/components/Tabs";
 import {OverviewPanel} from "@/app/genetic-data/components/OverviewPanel";
 import {ComparisonPanel} from "@/app/genetic-data/components/ComparisonPanel";
 import {AnomaliesPanel} from "@/app/genetic-data/components/AnomaliesPanel";
-import {Pagination} from "@/app/genetic-data/components/Pagination";
+import {Pagination} from "@/components/Pagination/Pagination";
 import s from "./page.module.scss";
 
 const GeneticDataPageContent = () => {

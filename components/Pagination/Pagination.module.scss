@@ -1,0 +1,27 @@
+.pagination {
+    margin-top: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+}
+
+.pageButton {
+    border: 1px solid rgba(0, 238, 255, 0.35);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.1);
+    color: #eafcff;
+    padding: 8px 14px;
+    cursor: pointer;
+    font-weight: 700;
+}
+
+.pageButton:disabled {
+    cursor: not-allowed;
+    opacity: 0.55;
+}
+
+.pageInfo {
+    color: #c9e6f2;
+    font-weight: 600;
+}

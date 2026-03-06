@@ -93,33 +93,6 @@
     color: #98c7d8;
 }
 
-.pagination {
-    margin-top: 18px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 12px;
-}
-
-.pageButton {
-    border: none;
-    border-radius: 999px;
-    padding: 8px 14px;
-    cursor: pointer;
-    font-weight: 700;
-    color: #001a1f;
-    background: linear-gradient(45deg, #00eeff, #00ff9d);
-}
-
-.pageButton:disabled {
-    cursor: not-allowed;
-    opacity: 0.55;
-}
-
-.pageInfo {
-    color: #c9e6f2;
-}
-
 @media (max-width: 830px) {
     .searchForm {
         flex-direction: column;
