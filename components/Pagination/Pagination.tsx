@@ -24,12 +24,15 @@ export const Pagination = ({
     const isPreviousDisabled = disablePrevious ?? currentPage <= 1;
     const isNextDisabled = disableNext ?? currentPage >= totalPages;
 
-    const changePage = (nextPage: number) => {
-        if (scrollToTopOnChange && typeof window !== "undefined") {
-            window.scrollTo({top: 0, behavior: "smooth"});
-        }
-
+    const changePage = (nextPage: number, trigger?: HTMLButtonElement) => {
+        trigger?.blur();
         onSetPage(nextPage);
+
+        if (scrollToTopOnChange && typeof window !== "undefined") {
+            requestAnimationFrame(() => {
+                window.scrollTo({top: 0, behavior: "smooth"});
+            });
+        }
     };
 
     return (
@@ -37,7 +40,7 @@ export const Pagination = ({
             <button
                 type="button"
                 className={s.pageButton}
-                onClick={() => changePage(currentPage - 1)}
+                onClick={(event) => changePage(currentPage - 1, event.currentTarget)}
                 disabled={isPreviousDisabled}
             >
                 Previous
@@ -46,7 +49,7 @@ export const Pagination = ({
             <button
                 type="button"
                 className={s.pageButton}
-                onClick={() => changePage(currentPage + 1)}
+                onClick={(event) => changePage(currentPage + 1, event.currentTarget)}
                 disabled={isNextDisabled}
             >
                 Next
