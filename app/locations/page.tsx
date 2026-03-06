@@ -7,8 +7,9 @@ import s from "./page.module.scss";
 import {Pagination} from "@/components/Pagination/Pagination";
 import {useRickAndMortyStore} from "@/app/store/RickAndMortyStore";
 import {LocationCard} from "@/components/LocationCard/LocationCard";
-import {Loader} from "@/components/Loader/Loader";
+import {Skeleton} from "@/components/Skeleton/Skeleton";
 import {SearchFormLocation} from "@/app/locations/components/SearchFormLocation";
+import {LOCATIONS_SKELETON_COUNT} from "@/app/constants/pagination";
 
 export default function LocationsPage() {
     const [query, setQuery] = React.useState("");
@@ -36,7 +37,13 @@ export default function LocationsPage() {
 
                 <SearchFormLocation onSearch={onSearch}/>
 
-                {loading && <p className={s.state}><Loader label="Loading locations"/></p>}
+                {loading && (
+                    <div className={s.grid}>
+                        {Array.from({length: LOCATIONS_SKELETON_COUNT}).map((_, index) => (
+                            <Skeleton key={index} className={s.cardSkeleton} label="Loading location card"/>
+                        ))}
+                    </div>
+                )}
                 {error && <p className={s.state}>Error: {error}</p>}
 
                 {locations && !loading && !error && locations.results.length === 0 && (

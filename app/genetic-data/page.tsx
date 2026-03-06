@@ -22,7 +22,7 @@ import {OverviewPanel} from "@/app/genetic-data/components/OverviewPanel";
 import {ComparisonPanel} from "@/app/genetic-data/components/ComparisonPanel";
 import {AnomaliesPanel} from "@/app/genetic-data/components/AnomaliesPanel";
 import {Pagination} from "@/components/Pagination/Pagination";
-import {Loader} from "@/components/Loader/Loader";
+import {ProgressBar} from "@/components/ProgressBar/ProgressBar";
 import s from "./page.module.scss";
 
 const GeneticDataPageContent = () => {
@@ -107,7 +107,7 @@ const GeneticDataPageContent = () => {
 
                 {loading && (
                     <div className={s.stateBox}>
-                        <Loader label="Loading genetic data"/>
+                        <ProgressBar label="Loading genetic data"/>
                     </div>
                 )}
 
@@ -160,7 +160,7 @@ export default function GeneticDataPage() {
                     <section className={s.container}>
                         <h1 className={s.title}>Genetic Data</h1>
                         <div className={s.stateBox}>
-                            <Loader label="Loading genetic data"/>
+                            <ProgressBar label="Loading genetic data"/>
                         </div>
                     </section>
                 </main>

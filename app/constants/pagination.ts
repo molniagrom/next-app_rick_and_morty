@@ -1,0 +1,3 @@
+export const EPISODES_PAGE_SIZE = 12;
+export const LOCATIONS_SKELETON_COUNT = 12;
+export const CHARACTERS_SKELETON_COUNT = 12;

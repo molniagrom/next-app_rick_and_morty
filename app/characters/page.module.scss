@@ -42,6 +42,11 @@
     gap: 16px;
 }
 
+.cardSkeleton {
+    height: 320px;
+    border: 1px solid rgba(0, 238, 255, 0.2);
+}
+
 .cardLink {
     text-decoration: none;
     display: block;

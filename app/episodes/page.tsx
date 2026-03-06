@@ -6,11 +6,10 @@ import {useEpisodes} from "@/app/hooks/useEpisodes";
 import {Pagination} from "@/components/Pagination/Pagination";
 import {useRickAndMortyStore} from "@/app/store/RickAndMortyStore";
 import {EpisodeCard} from "@/components/EpisodeCard/EpisodeCard";
-import {Loader} from "@/components/Loader/Loader";
+import {Skeleton} from "@/components/Skeleton/Skeleton";
 import {SearchFormEpisode} from "@/app/episodes/components/SearchFormEpisode";
+import {EPISODES_PAGE_SIZE} from "@/app/constants/pagination";
 import s from "./page.module.scss";
-
-const EPISODES_PAGE_SIZE = 12;
 
 export default function EpisodesPage() {
     const [query, setQuery] = React.useState("");
@@ -48,7 +47,13 @@ export default function EpisodesPage() {
                     onSearch={onSearch}
                 />
 
-                {loading && <p className={s.state}><Loader label="Loading episodes"/></p>}
+                {loading && (
+                    <div className={s.grid}>
+                        {Array.from({length: EPISODES_PAGE_SIZE}).map((_, index) => (
+                            <Skeleton key={index} className={s.cardSkeleton} label="Loading episode card"/>
+                        ))}
+                    </div>
+                )}
                 {error && <p className={s.state}>Error: {error}</p>}
 
                 {episodes && !loading && !error && episodes.length === 0 && (

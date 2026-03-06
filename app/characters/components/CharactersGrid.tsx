@@ -1,7 +1,8 @@
 import Link from "next/link";
 import CharacterCard from "@/components/CharacterCard/CharacterCard";
 import {CharacterType, Nullablen} from "@/app/types/types";
-import {Loader} from "@/components/Loader/Loader";
+import {CHARACTERS_SKELETON_COUNT} from "@/app/constants/pagination";
+import {Skeleton} from "@/components/Skeleton/Skeleton";
 import s from "../page.module.scss";
 
 type CharactersGridProps = {
@@ -13,9 +14,18 @@ type CharactersGridProps = {
 export const CharactersGrid = ({characters, loading, error}: CharactersGridProps) => {
     const stateClassName = `${s.subtitle} ${s.gridState}`;
 
+    if (loading) {
+        return (
+            <section className={s.grid}>
+                {Array.from({length: CHARACTERS_SKELETON_COUNT}).map((_, index) => (
+                    <Skeleton key={index} className={s.cardSkeleton} label="Loading character card"/>
+                ))}
+            </section>
+        );
+    }
+
     return (
         <section className={s.grid}>
-            {loading && <p className={stateClassName}><Loader label="Loading characters"/></p>}
             {error && <p className={stateClassName}>Error: {error}</p>}
             {characters && !loading && !error && characters.length === 0 && (
                 <p className={stateClassName}>Characters not found.</p>

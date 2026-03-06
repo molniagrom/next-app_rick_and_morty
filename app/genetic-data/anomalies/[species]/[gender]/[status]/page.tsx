@@ -5,7 +5,7 @@ import Link from "next/link";
 import {HeadMeta} from "@/components/HeadMeta/HeadMeta";
 import CharacterCard from "@/components/CharacterCard/CharacterCard";
 import {useAllCharacters} from "@/app/hooks/useAllCharacters";
-import {Loader} from "@/components/Loader/Loader";
+import {ProgressBar} from "@/components/ProgressBar/ProgressBar";
 import s from "./page.module.scss";
 
 type AnomalyPageProps = {
@@ -70,7 +70,9 @@ export default function AnomalyPage({params}: AnomalyPageProps) {
             <main className={s.page}>
                 <HeadMeta title="Loading anomaly..."/>
                 <section className={s.container}>
-                    <p className={s.state}><Loader label="Loading anomaly details"/></p>
+                    <div className={s.loadingState}>
+                        <ProgressBar label="Loading anomaly details"/>
+                    </div>
                 </section>
             </main>
         );
