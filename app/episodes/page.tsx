@@ -6,6 +6,7 @@ import {useEpisodes} from "@/app/hooks/useEpisodes";
 import {Pagination} from "@/components/Pagination/Pagination";
 import {useRickAndMortyStore} from "@/app/store/RickAndMortyStore";
 import {EpisodeCard} from "@/components/EpisodeCard/EpisodeCard";
+import {Loader} from "@/components/Loader/Loader";
 import s from "./page.module.scss";
 
 const EPISODES_PAGE_SIZE = 12;
@@ -53,7 +54,7 @@ export default function EpisodesPage() {
                     <button type="submit" className={s.searchButton}>Search</button>
                 </form>
 
-                {loading && <p className={s.state}>Loading episodes...</p>}
+                {loading && <p className={s.state}><Loader label="Loading episodes"/></p>}
                 {error && <p className={s.state}>Error: {error}</p>}
 
                 {episodes && !loading && !error && episodes.length === 0 && (

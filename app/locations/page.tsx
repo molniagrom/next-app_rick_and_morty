@@ -9,6 +9,7 @@ import {LOCATION_DIMENSIONS, LOCATION_TYPES} from "@/app/constants/locations";
 import {Pagination} from "@/components/Pagination/Pagination";
 import {useRickAndMortyStore} from "@/app/store/RickAndMortyStore";
 import {LocationCard} from "@/components/LocationCard/LocationCard";
+import {Loader} from "@/components/Loader/Loader";
 
 export default function LocationsPage() {
     const [inputValue, setInputValue] = React.useState("");
@@ -62,7 +63,7 @@ export default function LocationsPage() {
                     <button type="submit" className={s.searchButton}>Search</button>
                 </form>
 
-                {loading && <p className={s.state}>Loading locations...</p>}
+                {loading && <p className={s.state}><Loader label="Loading locations"/></p>}
                 {error && <p className={s.state}>Error: {error}</p>}
 
                 {locations && !loading && !error && locations.results.length === 0 && (

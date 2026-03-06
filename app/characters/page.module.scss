@@ -31,6 +31,11 @@
     color: #a0d2eb;
 }
 
+.gridState {
+    grid-column: 1 / -1;
+    text-align: center;
+}
+
 .grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));

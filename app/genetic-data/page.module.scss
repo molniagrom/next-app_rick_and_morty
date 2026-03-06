@@ -197,6 +197,13 @@
     color: #d7f0ff;
 }
 
+.stateBox {
+    min-height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .stateError {
     margin: 0;
     color: #ffb0b0;

@@ -22,6 +22,7 @@ import {OverviewPanel} from "@/app/genetic-data/components/OverviewPanel";
 import {ComparisonPanel} from "@/app/genetic-data/components/ComparisonPanel";
 import {AnomaliesPanel} from "@/app/genetic-data/components/AnomaliesPanel";
 import {Pagination} from "@/components/Pagination/Pagination";
+import {Loader} from "@/components/Loader/Loader";
 import s from "./page.module.scss";
 
 const GeneticDataPageContent = () => {
@@ -105,10 +106,8 @@ const GeneticDataPageContent = () => {
                 />
 
                 {loading && (
-                    <div className={s.skeletonGrid}>
-                        {Array.from({length: 6}).map((_, index) => (
-                            <div key={index} className={s.skeleton}/>
-                        ))}
+                    <div className={s.stateBox}>
+                        <Loader label="Loading genetic data"/>
                     </div>
                 )}
 
@@ -160,10 +159,8 @@ export default function GeneticDataPage() {
                 <main className={s.page}>
                     <section className={s.container}>
                         <h1 className={s.title}>Genetic Data</h1>
-                        <div className={s.skeletonGrid}>
-                            {Array.from({length: 6}).map((_, index) => (
-                                <div key={index} className={s.skeleton}/>
-                            ))}
+                        <div className={s.stateBox}>
+                            <Loader label="Loading genetic data"/>
                         </div>
                     </section>
                 </main>

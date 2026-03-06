@@ -5,6 +5,7 @@ import axios from "axios";
 import Link from "next/link";
 import {HeadMeta} from "@/components/HeadMeta/HeadMeta";
 import {useLocation} from "@/app/hooks/useLocation";
+import {Loader} from "@/components/Loader/Loader";
 import s from "./page.module.scss";
 
 export default function LocationPage() {
@@ -52,7 +53,7 @@ export default function LocationPage() {
             <div className={s.page}>
                 <HeadMeta title={"Loading location..."}/>
                 <main className={s.stateBox}>
-                    <h2>Loading location...</h2>
+                    <Loader label="Loading location"/>
                 </main>
             </div>
         );
@@ -84,7 +85,7 @@ export default function LocationPage() {
                     <div className={s.residentsBlock}>
                         <span className={s.residentsLabel}>Residents links:</span>
                         {location.residents.length === 0 && <p className={s.emptyResidents}>No residents found.</p>}
-                        {residentsLoading && <p className={s.emptyResidents}>Loading residents...</p>}
+                        {residentsLoading && <p className={s.emptyResidents}><Loader label="Loading residents"/></p>}
                         {location.residents.length > 0 && !residentsLoading && (
                             <ul className={s.residentsList}>
                                 {location.residents.map((residentUrl) => {

@@ -5,6 +5,7 @@ import Link from "next/link";
 import {HeadMeta} from "@/components/HeadMeta/HeadMeta";
 import {useEpisode} from "@/app/hooks/useEpisode";
 import {useEpisodeCharacters} from "@/app/hooks/useEpisodeCharacters";
+import {Loader} from "@/components/Loader/Loader";
 import s from "./page.module.scss";
 
 export default function EpisodePage() {
@@ -16,7 +17,7 @@ export default function EpisodePage() {
             <div className={s.page}>
                 <HeadMeta title={"Loading episode..."}/>
                 <main className={s.stateBox}>
-                    <h2>Loading episode...</h2>
+                    <Loader label="Loading episode"/>
                 </main>
             </div>
         );
@@ -46,7 +47,7 @@ export default function EpisodePage() {
 
                     <div className={s.charactersBlock}>
                         <span className={s.charactersLabel}>Characters in episode:</span>
-                        {charactersLoading && <p className={s.emptyCharacters}>Loading characters...</p>}
+                        {charactersLoading && <p className={s.emptyCharacters}><Loader label="Loading episode characters"/></p>}
                         {charactersError && <p className={s.emptyCharacters}>Error: {charactersError}</p>}
                         {!charactersLoading && !charactersError && characters.length === 0 && (
                             <p className={s.emptyCharacters}>No characters found.</p>

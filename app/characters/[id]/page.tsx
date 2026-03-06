@@ -6,6 +6,7 @@ import Link from "next/link";
 import {HeadMeta} from "@/components/HeadMeta/HeadMeta";
 import {useCharacter} from "@/app/hooks/useCharacter";
 import {CharacterInfoSection} from "@/app/characters/[id]/components/CharacterInfoSection";
+import {Loader} from "@/components/Loader/Loader";
 import s from "./page.module.scss";
 
 export default function CharacterPage() {
@@ -16,7 +17,7 @@ export default function CharacterPage() {
             <div className={s.page}>
                 <HeadMeta title={"Loading..."}/>
                 <main className={s.stateBox}>
-                    <h2>Loading character...</h2>
+                    <Loader label="Loading character"/>
                 </main>
             </div>
         );
