@@ -20,11 +20,11 @@ export default function Home() {
                     </div>
 
                     <div className={s.featuresGrid}>
-                        <Link href="/infinite-dimensions" className={s.featureLink}>
+                        <Link href="/favorites" className={s.featureLink}>
                             <div className={s.featureItem}>
-                                <span className={s.featureIcon}>🌌</span>
-                                <h4>Infinite Dimensions</h4>
-                                <p>Characters from different realities and timelines</p>
+                                <span className={s.featureIcon}>❤️</span>
+                                <h4>Favorites</h4>
+                                <p>Saved characters, locations and episodes in one place</p>
                             </div>
                         </Link>
                         <Link href="/genetic-data" className={s.featureLink}>
@@ -60,3 +60,4 @@ export default function Home() {
         </main>
     );
 }
+

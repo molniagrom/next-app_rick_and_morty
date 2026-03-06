@@ -1,6 +1,6 @@
 .page {
-    min-height: 100vh;
-    padding: 28px 20px 44px;
+    min-height: calc(100vh - 220px);
+    padding: 24px;
     background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
 }
 
@@ -10,52 +10,45 @@
 }
 
 .title {
-    margin: 0 0 18px;
-    text-align: center;
-    font-size: clamp(2rem, 4vw, 3rem);
+    margin: 0 0 8px;
+    font-size: clamp(1.9rem, 3.6vw, 2.8rem);
     font-weight: 800;
     background: linear-gradient(45deg, #00eeff, #00ff9d);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    text-shadow: 0 0 30px rgba(0, 238, 255, 0.5);
 }
 
-.state {
-    margin-top: 14px;
-    text-align: center;
+.subtitle {
+    margin: 0 0 18px;
     color: #c9e6f2;
 }
 
-.searchForm {
-    margin: 0 auto 16px;
-    max-width: 1100px;
+.tabs {
     display: flex;
     gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 16px;
 }
 
-.searchInput {
-    flex: 1;
+.tab {
     border: 1px solid rgba(0, 238, 255, 0.35);
     border-radius: 999px;
-    background: rgba(255, 255, 255, 0.07);
+    background: rgba(255, 255, 255, 0.08);
     color: #eafcff;
-    padding: 10px 14px;
-    outline: none;
-}
-
-.searchInput::placeholder {
-    color: #98c7d8;
-}
-
-.searchButton {
-    border: none;
-    border-radius: 999px;
-    padding: 10px 16px;
+    padding: 8px 14px;
     cursor: pointer;
     font-weight: 700;
+}
+
+.tabActive {
     color: #001a1f;
     background: linear-gradient(45deg, #00eeff, #00ff9d);
+}
+
+.state {
+    margin-top: 8px;
+    color: #d7f0ff;
 }
 
 .grid {
@@ -66,7 +59,6 @@
 
 .cardLink {
     text-decoration: none;
-    display: block;
 }
 
 .card {
@@ -74,7 +66,7 @@
     border-radius: 12px;
     background: rgba(255, 255, 255, 0.05);
     backdrop-filter: blur(8px);
-    padding: 14px 14px 54px;
+    padding: 12px 12px 52px;
     color: #eafcff;
     position: relative;
 }
@@ -94,12 +86,24 @@
     color: #98c7d8;
 }
 
-@media (max-width: 830px) {
-    .searchForm {
-        flex-direction: column;
-    }
+.previewImage,
+.previewFallback {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
 
-    .searchButton {
-        width: 100%;
-    }
+.previewImage {
+    object-fit: cover;
+}
+
+.previewFallback {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #98c7d8;
+    border: 1px dashed rgba(0, 238, 255, 0.35);
+    background: rgba(255, 255, 255, 0.03);
 }

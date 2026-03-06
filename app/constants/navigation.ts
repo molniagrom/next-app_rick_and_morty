@@ -4,5 +4,5 @@ export const NAV_LINKS = [
     {href: "/episodes", title: "Episodes"},
     {href: "/locations", title: "Locations"},
     {href: "/genetic-data", title: "Genetic Data"},
-    {href: "/infinite-dimensions", title: "Infinite Dimensions"},
+    {href: "/favorites", title: "Favorites"},
 ] as const;

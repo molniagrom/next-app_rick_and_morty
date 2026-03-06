@@ -16,6 +16,11 @@ export type RickAndMortyState = {
     episodeCharacters: ResourceState<EpisodeCharacter[]>,
     locations: ResourceState<LocationsPayload>,
     location: ResourceState<LocationType>,
+    favorites: {
+        characters: CharacterType[],
+        episodes: EpisodeType[],
+        locations: LocationType[],
+    },
 }
 
 export type RickAndMortyStoreValue = {
@@ -45,4 +50,7 @@ export type RickAndMortyStoreActions = {
         error: string,
         fallbackData: ResourceMap[K] | null
     ) => void,
+    toggleFavoriteCharacter: (character: CharacterType) => void,
+    toggleFavoriteEpisode: (episode: EpisodeType) => void,
+    toggleFavoriteLocation: (location: LocationType) => void,
 }

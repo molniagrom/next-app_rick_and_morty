@@ -5,6 +5,8 @@ import Link from "next/link";
 import Image from "next/image";
 import {useEpisodes} from "@/app/hooks/useEpisodes";
 import {Pagination} from "@/components/Pagination/Pagination";
+import {useRickAndMortyStore} from "@/app/store/RickAndMortyStore";
+import {FavoriteButton} from "@/components/FavoriteButton/FavoriteButton";
 import s from "./page.module.scss";
 
 const EPISODES_PAGE_SIZE = 12;
@@ -14,8 +16,13 @@ export default function EpisodesPage() {
     const [query, setQuery] = React.useState("");
     const [page, setPage] = React.useState(1);
     const {episodes, loading, error} = useEpisodes(query);
+    const {state, actions} = useRickAndMortyStore();
     const totalPages = Math.max(1, Math.ceil((episodes?.length ?? 0) / EPISODES_PAGE_SIZE));
     const currentPage = Math.min(page, totalPages);
+    const favoriteEpisodeIds = useMemo(
+        () => new Set(state.favorites.episodes.map((episode) => episode.id)),
+        [state.favorites.episodes]
+    );
 
     const paginatedEpisodes = useMemo(() => {
         if (!episodes) {
@@ -75,6 +82,17 @@ export default function EpisodesPage() {
                                         <h2>{episode.name}</h2>
                                         <p><span>Code:</span> {episode.episode}</p>
                                         <p><span>Air date:</span> {episode.air_date}</p>
+                                        <FavoriteButton
+                                            active={favoriteEpisodeIds.has(episode.id)}
+                                            onClick={(event) => {
+                                                event.preventDefault();
+                                                event.stopPropagation();
+                                                actions.toggleFavoriteEpisode(episode);
+                                            }}
+                                            title={favoriteEpisodeIds.has(episode.id)
+                                                ? "Remove episode from favorites"
+                                                : "Add episode to favorites"}
+                                        />
                                     </article>
                                 </Link>
                             ))}

@@ -1,6 +1,6 @@
 "use client";
 
-import {createContext, PropsWithChildren, useContext, useMemo, useState} from "react";
+import {createContext, PropsWithChildren, useContext, useEffect, useMemo, useState} from "react";
 import {
     CharacterType,
     EpisodeCharacter,
@@ -26,12 +26,52 @@ const initialState: RickAndMortyState = {
     episodeCharacters: emptyResource<EpisodeCharacter[]>(),
     locations: emptyResource<LocationsPayload>(),
     location: emptyResource<LocationType>(),
+    favorites: {
+        characters: [],
+        episodes: [],
+        locations: [],
+    },
 };
 
 const RickAndMortyStoreContext = createContext<RickAndMortyStoreValue | null>(null);
+const FAVORITES_STORAGE_KEY = "rick-and-morty-favorites";
 
 export const RickAndMortyProvider = ({children}: PropsWithChildren) => {
     const [state, setState] = useState<RickAndMortyState>(initialState);
+    const [favoritesHydrated, setFavoritesHydrated] = useState(false);
+
+    useEffect(() => {
+        try {
+            const raw = localStorage.getItem(FAVORITES_STORAGE_KEY);
+            if (!raw) {
+                setFavoritesHydrated(true);
+                return;
+            }
+
+            const parsed = JSON.parse(raw) as Partial<RickAndMortyState["favorites"]>;
+            setState((prev) => ({
+                ...prev,
+                favorites: {
+                    characters: Array.isArray(parsed.characters) ? parsed.characters : [],
+                    episodes: Array.isArray(parsed.episodes) ? parsed.episodes : [],
+                    locations: Array.isArray(parsed.locations) ? parsed.locations : [],
+                },
+            }));
+        } catch (error) {
+            console.error("Failed to restore favorites from localStorage", error);
+        } finally {
+            setFavoritesHydrated(true);
+        }
+    }, []);
+
+    useEffect(() => {
+        if (!favoritesHydrated) {
+            return;
+        }
+
+        localStorage.setItem(FAVORITES_STORAGE_KEY, JSON.stringify(state.favorites));
+    }, [favoritesHydrated, state.favorites]);
+
     const actions = useMemo<RickAndMortyStoreActions>(() => ({
         beginResource: (resource, key, resetData = true) => {
             setState((prev) => ({
@@ -66,6 +106,54 @@ export const RickAndMortyProvider = ({children}: PropsWithChildren) => {
                     error,
                 },
             }));
+        },
+        toggleFavoriteCharacter: (character) => {
+            setState((prev) => {
+                const exists = prev.favorites.characters.some((item) => item.id === character.id);
+                const nextCharacters = exists
+                    ? prev.favorites.characters.filter((item) => item.id !== character.id)
+                    : [character, ...prev.favorites.characters];
+
+                return {
+                    ...prev,
+                    favorites: {
+                        ...prev.favorites,
+                        characters: nextCharacters,
+                    },
+                };
+            });
+        },
+        toggleFavoriteEpisode: (episode) => {
+            setState((prev) => {
+                const exists = prev.favorites.episodes.some((item) => item.id === episode.id);
+                const nextEpisodes = exists
+                    ? prev.favorites.episodes.filter((item) => item.id !== episode.id)
+                    : [episode, ...prev.favorites.episodes];
+
+                return {
+                    ...prev,
+                    favorites: {
+                        ...prev.favorites,
+                        episodes: nextEpisodes,
+                    },
+                };
+            });
+        },
+        toggleFavoriteLocation: (location) => {
+            setState((prev) => {
+                const exists = prev.favorites.locations.some((item) => item.id === location.id);
+                const nextLocations = exists
+                    ? prev.favorites.locations.filter((item) => item.id !== location.id)
+                    : [location, ...prev.favorites.locations];
+
+                return {
+                    ...prev,
+                    favorites: {
+                        ...prev.favorites,
+                        locations: nextLocations,
+                    },
+                };
+            });
         },
     }), []);
     const value = useMemo(() => ({state, setState, actions}), [actions, state]);
