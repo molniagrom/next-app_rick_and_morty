@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import {HeadMeta} from "@/components/HeadMeta/HeadMeta";
 import {useCharacter} from "@/app/hooks/useCharacter";
+import {CharacterInfoSection} from "@/app/characters/[id]/components/CharacterInfoSection";
 import s from "./page.module.scss";
 
 export default function CharacterPage() {
@@ -50,40 +51,9 @@ export default function CharacterPage() {
                     />
                 </section>
 
-                <section className={s.infoSection}>
-                    <h1 className={s.title}>{character.name}</h1>
-                    <div className={s.metaGrid}>
-                        <article className={s.metaItem}>
-                            <span className={s.label}>Status</span>
-                            <span className={s.value}>{character.status}</span>
-                        </article>
-                        <article className={s.metaItem}>
-                            <span className={s.label}>Species</span>
-                            <span className={s.value}>{character.species}</span>
-                        </article>
-                        <article className={s.metaItem}>
-                            <span className={s.label}>Type</span>
-                            <span className={s.value}>{character.type || "Unknown"}</span>
-                        </article>
-                        <article className={s.metaItem}>
-                            <span className={s.label}>Gender</span>
-                            <span className={s.value}>{character.gender}</span>
-                        </article>
-                        <article className={s.metaItem}>
-                            <span className={s.label}>Origin</span>
-                            <span className={s.value}>{character.origin?.name ?? "Unknown"}</span>
-                        </article>
-                        <article className={s.metaItem}>
-                            <span className={s.label}>Last Known Location</span>
-                            <span className={s.value}>{character.location?.name ?? "Unknown"}</span>
-                        </article>
-                        <article className={s.metaItem}>
-                            <span className={s.label}>Episodes</span>
-                            <span className={s.value}>{character.episode?.length ?? 0}</span>
-                        </article>
-                    </div>
+                <CharacterInfoSection character={character}>
                     <Link href="/characters" className={s.backLink}>Back to Characters</Link>
-                </section>
+                </CharacterInfoSection>
             </main>
         </div>
     );
