@@ -11,6 +11,14 @@ import {SearchFormCharacter} from "@/app/characters/components/SearchFormCharact
 
 
 export default function Page() {
+    return (
+        <React.Suspense fallback={<CharactersPageFallback/>}>
+            <CharactersPageContent/>
+        </React.Suspense>
+    );
+}
+
+function CharactersPageContent() {
     const router = useRouter();
     const pathname = usePathname();
     const searchParams = useSearchParams();
@@ -99,5 +107,19 @@ export default function Page() {
                 )}
             </main>
         </div>
-    )
+    );
+}
+
+function CharactersPageFallback() {
+    return (
+        <div className={s.page}>
+            <HeadMeta title={"Characters"}/>
+            <main className={s.container}>
+                <section className={s.headerSection}>
+                    <h1 className={s.title}>Characters</h1>
+                    <p className={s.subtitle}>Loading page...</p>
+                </section>
+            </main>
+        </div>
+    );
 }
