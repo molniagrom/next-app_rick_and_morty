@@ -3,6 +3,7 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
+import {useSearchParams} from "next/navigation";
 import {HeadMeta} from "@/components/HeadMeta/HeadMeta";
 import {useCharacter} from "@/app/hooks/useCharacter";
 import {CharacterInfoSection} from "@/app/characters/[id]/components/CharacterInfoSection";
@@ -10,7 +11,23 @@ import {Loader} from "@/components/Loader/Loader";
 import s from "./page.module.scss";
 
 export default function CharacterPage() {
+    const searchParams = useSearchParams();
     const {character, loading, error} = useCharacter();
+    const backHref = React.useMemo(() => {
+        const params = new URLSearchParams();
+        const query = searchParams.get("query");
+        const page = searchParams.get("page");
+
+        if (query) {
+            params.set("query", query);
+        }
+        if (page && page !== "1") {
+            params.set("page", page);
+        }
+
+        const queryString = params.toString();
+        return queryString ? `/characters?${queryString}` : "/characters";
+    }, [searchParams]);
 
     if (loading) {
         return (
@@ -29,7 +46,7 @@ export default function CharacterPage() {
                 <HeadMeta title={"Error"}/>
                 <main className={s.stateBox}>
                     <h2>Error: {error ?? "Character not found"}</h2>
-                    <Link href="/characters" className={s.backLink}>Back to Characters</Link>
+                    <Link href={backHref} className={s.backLink}>Back to Characters</Link>
                 </main>
             </div>
         );
@@ -53,7 +70,7 @@ export default function CharacterPage() {
                 </section>
 
                 <CharacterInfoSection character={character}>
-                    <Link href="/characters" className={s.backLink}>Back to Characters</Link>
+                    <Link href={backHref} className={s.backLink}>Back to Characters</Link>
                 </CharacterInfoSection>
             </main>
         </div>

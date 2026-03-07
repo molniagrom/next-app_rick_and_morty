@@ -11,6 +11,10 @@ type SearchFormCharacterProps = {
 export const SearchFormCharacter = ({onSearchAction, initialValue = ""}: SearchFormCharacterProps) => {
     const [value, setValue] = React.useState(initialValue);
 
+    React.useEffect(() => {
+        setValue(initialValue);
+    }, [initialValue]);
+
     const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         onSearchAction(value.trim());

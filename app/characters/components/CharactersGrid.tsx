@@ -9,9 +9,10 @@ type CharactersGridProps = {
     characters: Nullablen<CharacterType[]>;
     loading: boolean;
     error: string | null;
+    detailsSearch?: string;
 }
 
-export const CharactersGrid = ({characters, loading, error}: CharactersGridProps) => {
+export const CharactersGrid = ({characters, loading, error, detailsSearch = ""}: CharactersGridProps) => {
     const stateClassName = `${s.subtitle} ${s.gridState}`;
 
     if (loading) {
@@ -31,7 +32,7 @@ export const CharactersGrid = ({characters, loading, error}: CharactersGridProps
                 <p className={stateClassName}>Characters not found.</p>
             )}
             {characters && !loading && !error && characters.map((character) => (
-                <Link key={character.id} href={`/characters/${character.id}`} className={s.cardLink}>
+                <Link key={character.id} href={`/characters/${character.id}${detailsSearch}`} className={s.cardLink}>
                     <CharacterCard character={character}/>
                 </Link>
             ))}
