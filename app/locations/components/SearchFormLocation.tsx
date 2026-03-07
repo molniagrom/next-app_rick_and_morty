@@ -1,17 +1,24 @@
 
 import React from "react";
+import {Controller, useForm} from "react-hook-form";
+import {zodResolver} from "@hookform/resolvers/zod";
+import {z} from "zod";
 import {CustomSelect} from "@/components/CustomSelect/CustomSelect";
 import {LOCATION_DIMENSIONS, LOCATION_TYPES} from "@/app/constants/locations";
 import s from "./SearchFormLocation.module.scss";
 
-type SearchLocationParams = {
-    query: string;
-    type: string;
-    dimension: string;
-}
+const formSchema = z.object({
+    query: z.string().trim().min(1, "Обязательное поле"),
+    type: z.string().trim(),
+    dimension: z.string().trim(),
+});
+
+type FormValues = z.infer<typeof formSchema>;
+
+type SearchLocationParams = FormValues;
 
 type SearchFormLocationProps = {
-    onSearchAction: (params: SearchLocationParams) => void;
+    onSearchAction: (params: SearchLocationParams) => void | Promise<void>;
     initialQuery?: string;
     initialType?: string;
     initialDimension?: string;
@@ -23,42 +30,69 @@ export const SearchFormLocation = ({
     initialType = "",
     initialDimension = "",
 }: SearchFormLocationProps) => {
-    const [queryValue, setQueryValue] = React.useState(initialQuery);
-    const [typeValue, setTypeValue] = React.useState(initialType);
-    const [dimensionValue, setDimensionValue] = React.useState(initialDimension);
+    const {
+        register,
+        handleSubmit,
+        control,
+        reset,
+        formState: {errors, isSubmitting},
+    } = useForm<FormValues>({
+        resolver: zodResolver(formSchema),
+        defaultValues: {
+            query: initialQuery,
+            type: initialType,
+            dimension: initialDimension,
+        },
+    });
 
-    const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
-        onSearchAction({
-            query: queryValue.trim(),
-            type: typeValue.trim(),
-            dimension: dimensionValue.trim(),
+    React.useEffect(() => {
+        reset({
+            query: initialQuery,
+            type: initialType,
+            dimension: initialDimension,
         });
-    };
+    }, [initialDimension, initialQuery, initialType, reset]);
 
     return (
-        <form className={s.searchForm} onSubmit={onSubmit}>
+        <form
+            className={s.searchForm}
+            onSubmit={handleSubmit(async (values) => {
+                await onSearchAction(values);
+            })}
+        >
             <input
-                value={queryValue}
-                onChange={(event) => setQueryValue(event.target.value)}
+                {...register("query")}
                 className={s.searchInput}
                 placeholder="Search by name"
             />
-            <CustomSelect
-                value={typeValue}
-                onChange={setTypeValue}
-                className={s.searchInput}
-                placeholder="All types"
-                options={LOCATION_TYPES.map((type) => ({value: type, label: type}))}
+            <Controller
+                control={control}
+                name="type"
+                render={({field}) => (
+                    <CustomSelect
+                        value={field.value}
+                        onChange={field.onChange}
+                        className={s.searchInput}
+                        placeholder="All types"
+                        options={LOCATION_TYPES.map((type) => ({value: type, label: type}))}
+                    />
+                )}
             />
-            <CustomSelect
-                value={dimensionValue}
-                onChange={setDimensionValue}
-                className={s.searchInput}
-                placeholder="All dimensions"
-                options={LOCATION_DIMENSIONS.map((dimension) => ({value: dimension, label: dimension}))}
+            <Controller
+                control={control}
+                name="dimension"
+                render={({field}) => (
+                    <CustomSelect
+                        value={field.value}
+                        onChange={field.onChange}
+                        className={s.searchInput}
+                        placeholder="All dimensions"
+                        options={LOCATION_DIMENSIONS.map((dimension) => ({value: dimension, label: dimension}))}
+                    />
+                )}
             />
-            <button type="submit" className={s.searchButton}>Search</button>
+            {errors.query && <p className="text-red-500 text-sm">{errors.query.message}</p>}
+            <button type="submit" className={s.searchButton} disabled={isSubmitting}>Search</button>
         </form>
     );
 };

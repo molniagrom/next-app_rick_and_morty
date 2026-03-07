@@ -45,6 +45,12 @@ export default function Page() {
         syncUrl(normalizedQuery, 1);
     };
 
+    const onReset = () => {
+        setQuery("");
+        setPage(1);
+        syncUrl("", 1);
+    };
+
     const detailsSearch = React.useMemo(() => {
         const params = new URLSearchParams();
 
@@ -70,6 +76,7 @@ export default function Page() {
 
                 <SearchFormCharacter
                     onSearchAction={onSearch}
+                    onResetAction={onReset}
                     initialValue={query}
                 />
 
