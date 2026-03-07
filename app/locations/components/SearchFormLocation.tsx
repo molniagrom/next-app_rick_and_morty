@@ -11,14 +11,14 @@ type SearchLocationParams = {
 }
 
 type SearchFormLocationProps = {
-    onSearch: (params: SearchLocationParams) => void;
+    onSearchAction: (params: SearchLocationParams) => void;
     initialQuery?: string;
     initialType?: string;
     initialDimension?: string;
 }
 
 export const SearchFormLocation = ({
-    onSearch,
+    onSearchAction,
     initialQuery = "",
     initialType = "",
     initialDimension = "",
@@ -29,7 +29,7 @@ export const SearchFormLocation = ({
 
     const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        onSearch({
+        onSearchAction({
             query: queryValue.trim(),
             type: typeValue.trim(),
             dimension: dimensionValue.trim(),

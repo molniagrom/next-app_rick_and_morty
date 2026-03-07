@@ -7,7 +7,7 @@ const meta = {
     component: SearchFormEpisode,
     tags: ["autodocs"],
     args: {
-        onSearch: fn(),
+        onSearchAction: fn(),
         placeholder: "Search by name or code (e.g. S01E01)",
         buttonLabel: "Search",
         initialValue: "",

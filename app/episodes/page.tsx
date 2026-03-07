@@ -44,7 +44,7 @@ export default function EpisodesPage() {
                 <h1 className={s.title}>Episodes</h1>
 
                 <SearchFormEpisode
-                    onSearch={onSearch}
+                    onSearchAction={onSearch}
                 />
 
                 {loading && (

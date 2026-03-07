@@ -4,14 +4,14 @@ import React from "react";
 import s from "./SearchForm.module.scss";
 
 type SearchFormEpisodeProps = {
-    onSearch: (query: string) => void;
+    onSearchAction: (query: string) => void;
     placeholder?: string;
     buttonLabel?: string;
     initialValue?: string;
 }
 
 export const SearchFormEpisode = ({
-    onSearch,
+    onSearchAction,
     placeholder = "Search by name or code (e.g. S01E01)",
     buttonLabel = "Search",
     initialValue = "",
@@ -20,7 +20,7 @@ export const SearchFormEpisode = ({
 
     const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        onSearch(value.trim());
+        onSearchAction(value.trim());
     };
 
     return (

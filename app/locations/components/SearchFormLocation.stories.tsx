@@ -7,7 +7,7 @@ const meta = {
     component: SearchFormLocation,
     tags: ["autodocs"],
     args: {
-        onSearch: fn(),
+        onSearchAction: fn(),
         initialQuery: "",
         initialType: "",
         initialDimension: "",

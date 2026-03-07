@@ -35,7 +35,7 @@ export default function LocationsPage() {
             <section className={s.container}>
                 <h1 className={s.title}>Locations</h1>
 
-                <SearchFormLocation onSearch={onSearch}/>
+                <SearchFormLocation onSearchAction={onSearch}/>
 
                 {loading && (
                     <div className={s.grid}>
