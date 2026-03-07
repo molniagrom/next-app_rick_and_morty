@@ -10,13 +10,13 @@
     height: 10px;
     border-radius: 999px;
     overflow: hidden;
-    border: 1px solid rgba(0, 238, 255, 0.35);
-    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid var(--border-accent-medium);
+    background: var(--surface-elevated);
 }
 
 .fill {
     height: 100%;
-    background: linear-gradient(90deg, #00eeff, #00ff9d);
+    background: linear-gradient(90deg, var(--text-accent), var(--text-accent-2));
     border-radius: inherit;
     transition: width 0.2s ease;
 }
@@ -31,7 +31,7 @@
 .label {
     margin-top: 8px;
     text-align: center;
-    color: #c9e6f2;
+    color: var(--text-soft);
     font-size: 0.9rem;
 }
 
@@ -44,3 +44,4 @@
         left: 100%;
     }
 }
+

@@ -1,17 +1,17 @@
 .card {
-    border: 1px solid rgba(0, 238, 255, 0.3);
+    border: 1px solid var(--border-accent);
     border-radius: 12px;
-    background: rgba(255, 255, 255, 0.05);
+    background: var(--surface-card);
     backdrop-filter: blur(8px);
     padding: 14px 14px 54px;
-    color: #eafcff;
+    color: var(--text-primary);
     position: relative;
 }
 
 .card h2 {
     margin: 0 0 10px;
     font-size: 1.1rem;
-    color: #00eeff;
+    color: var(--text-accent);
 }
 
 .card p {
@@ -20,5 +20,6 @@
 }
 
 .card span {
-    color: #98c7d8;
+    color: var(--text-muted);
 }
+

@@ -5,9 +5,9 @@
     width: 34px;
     height: 34px;
     border-radius: 999px;
-    border: 1px solid rgba(255, 255, 255, 0.35);
-    background: rgba(10, 20, 30, 0.75);
-    color: #b6d6e7;
+    border: 1px solid var(--border-white-medium);
+    background: var(--favorite-bg);
+    color: var(--text-muted);
     font-size: 18px;
     line-height: 1;
     display: flex;
@@ -23,6 +23,7 @@
 }
 
 .active {
-    color: #ff4f7b;
-    border-color: rgba(255, 79, 123, 0.6);
+    color: var(--favorite-active);
+    border-color: color-mix(in srgb, var(--favorite-active) 60%, transparent);
 }
+

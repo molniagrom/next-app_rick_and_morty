@@ -3,7 +3,7 @@
     height: 48px;
     border-width: 3px;
     border-style: solid solid dotted dotted;
-    border-color: #b9f6ff;
+    border-color: var(--text-soft);
     border-radius: 50%;
     display: block;
     margin: 0 auto;
@@ -23,7 +23,7 @@
     margin: auto;
     border-width: 3px;
     border-style: solid solid dotted;
-    border-color: #00eeff;
+    border-color: var(--text-accent);
     width: 24px;
     height: 24px;
     border-radius: 50%;
@@ -48,3 +48,4 @@
         transform: rotate(-360deg);
     }
 }
+

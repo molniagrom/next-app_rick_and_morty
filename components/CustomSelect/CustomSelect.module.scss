@@ -6,10 +6,10 @@
 
 .trigger {
     width: 100%;
-    border: 1px solid rgba(0, 238, 255, 0.35);
+    border: 1px solid var(--border-accent-medium);
     border-radius: 999px;
-    background: rgba(255, 255, 255, 0.07);
-    color: #eafcff;
+    background: var(--surface-card);
+    color: var(--text-primary);
     padding: 10px 14px;
     outline: none;
     cursor: pointer;
@@ -20,23 +20,23 @@
 }
 
 .triggerOpen {
-    border-color: rgba(0, 238, 255, 0.7);
-    box-shadow: 0 0 0 2px rgba(0, 238, 255, 0.15);
+    border-color: color-mix(in srgb, var(--text-accent) 70%, transparent);
+    box-shadow: 0 0 0 2px color-mix(in srgb, var(--text-accent) 15%, transparent);
 }
 
 .value {
-    color: #eafcff;
+    color: var(--text-primary);
 }
 
 .placeholder {
-    color: #98c7d8;
+    color: var(--text-muted);
 }
 
 .chevron {
     width: 8px;
     height: 8px;
-    border-right: 2px solid #00eeff;
-    border-bottom: 2px solid #00eeff;
+    border-right: 2px solid var(--text-accent);
+    border-bottom: 2px solid var(--text-accent);
     transform: rotate(45deg);
     transition: transform 0.2s ease;
     margin-right: 4px;
@@ -54,9 +54,9 @@
     margin: 0;
     padding: 6px;
     list-style: none;
-    border: 1px solid rgba(0, 238, 255, 0.28);
+    border: 1px solid color-mix(in srgb, var(--text-accent) 28%, transparent);
     border-radius: 12px;
-    background: rgba(10, 26, 48, 0.96);
+    background: var(--surface-menu-strong);
     backdrop-filter: blur(8px);
     max-height: 0;
     opacity: 0;
@@ -80,7 +80,7 @@
     border: none;
     border-radius: 8px;
     background: transparent;
-    color: #eafcff;
+    color: var(--text-primary);
     text-align: left;
     padding: 9px 10px;
     cursor: pointer;
@@ -88,10 +88,11 @@
 }
 
 .option:hover {
-    background: rgba(0, 238, 255, 0.14);
+    background: color-mix(in srgb, var(--text-accent) 14%, transparent);
 }
 
 .selected {
-    background: rgba(0, 238, 255, 0.2);
-    color: #b8feff;
+    background: var(--border-accent-weak);
+    color: color-mix(in srgb, var(--text-accent) 75%, white);
 }
+

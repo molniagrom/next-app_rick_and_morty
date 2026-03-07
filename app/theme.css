@@ -1,0 +1,149 @@
+:root {
+    --font-sans: var(--font-geist-sans);
+    --font-mono: var(--font-geist-mono);
+
+    --background: #060d18;
+    --foreground: #eafcff;
+    --page-gradient: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    --surface-header: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    --surface-footer: linear-gradient(135deg, #0d1d34 0%, #152b4a 50%, #0f3460 100%);
+
+    --surface-card: rgba(255, 255, 255, 0.05);
+    --surface-card-soft: rgba(255, 255, 255, 0.04);
+    --surface-card-subtle: rgba(255, 255, 255, 0.03);
+    --surface-elevated: rgba(255, 255, 255, 0.08);
+    --surface-elevated-strong: rgba(255, 255, 255, 0.1);
+    --surface-overlay: rgba(3, 10, 20, 0.58);
+    --surface-menu: rgba(10, 26, 48, 0.88);
+    --surface-menu-strong: rgba(10, 26, 48, 0.96);
+    --surface-button: rgba(255, 255, 255, 0.08);
+    --surface-button-hover: rgba(255, 255, 255, 0.16);
+
+    --border-accent-soft: rgba(0, 238, 255, 0.25);
+    --border-accent-weak: rgba(0, 238, 255, 0.2);
+    --border-accent: rgba(0, 238, 255, 0.3);
+    --border-accent-medium: rgba(0, 238, 255, 0.35);
+    --border-accent-strong: rgba(0, 238, 255, 0.55);
+    --border-neutral-soft: rgba(128, 128, 128, 0.2);
+    --border-white-soft: rgba(255, 255, 255, 0.1);
+    --border-white-medium: rgba(255, 255, 255, 0.12);
+
+    --chip-bg: linear-gradient(45deg, #00eeff, #00ff9d);
+    --chip-text: #001a1f;
+
+    --text-primary: #eafcff;
+    --text-secondary: #dbf7ff;
+    --text-muted: #98c7d8;
+    --text-soft: #c9e6f2;
+    --text-soft-2: #d7f0ff;
+    --text-accent: #00eeff;
+    --text-accent-2: #00ff9d;
+    --text-white: #ffffff;
+    --text-danger: #ffb0b0;
+    --favorite-active: #ff4f7b;
+    --favorite-bg: rgba(10, 20, 30, 0.75);
+
+    --shadow-accent: rgba(0, 238, 255, 0.35);
+    --shadow-accent-soft: rgba(0, 238, 255, 0.24);
+    --shadow-accent-card: rgba(0, 238, 255, 0.2);
+    --shadow-accent-strong: rgba(0, 238, 255, 0.4);
+    --shadow-accent-max: rgba(0, 238, 255, 0.6);
+
+    --skeleton-start: rgba(255, 255, 255, 0.07);
+    --skeleton-mid: rgba(160, 245, 255, 0.2);
+    --skeleton-end: rgba(255, 255, 255, 0.07);
+}
+
+[data-theme="dark"] {
+    --background: #060d18;
+    --foreground: #eafcff;
+    --page-gradient: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    --surface-header: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    --surface-footer: linear-gradient(135deg, #0d1d34 0%, #152b4a 50%, #0f3460 100%);
+    --surface-card: rgba(255, 255, 255, 0.05);
+    --surface-card-soft: rgba(255, 255, 255, 0.04);
+    --surface-card-subtle: rgba(255, 255, 255, 0.03);
+    --surface-elevated: rgba(255, 255, 255, 0.08);
+    --surface-elevated-strong: rgba(255, 255, 255, 0.1);
+    --surface-overlay: rgba(3, 10, 20, 0.58);
+    --surface-menu: rgba(10, 26, 48, 0.88);
+    --surface-menu-strong: rgba(10, 26, 48, 0.96);
+    --surface-button: rgba(255, 255, 255, 0.08);
+    --surface-button-hover: rgba(255, 255, 255, 0.16);
+    --border-accent-soft: rgba(0, 238, 255, 0.25);
+    --border-accent-weak: rgba(0, 238, 255, 0.2);
+    --border-accent: rgba(0, 238, 255, 0.3);
+    --border-accent-medium: rgba(0, 238, 255, 0.35);
+    --border-accent-strong: rgba(0, 238, 255, 0.55);
+    --border-neutral-soft: rgba(128, 128, 128, 0.2);
+    --border-white-soft: rgba(255, 255, 255, 0.1);
+    --border-white-medium: rgba(255, 255, 255, 0.12);
+    --chip-bg: linear-gradient(45deg, #00eeff, #00ff9d);
+    --chip-text: #001a1f;
+    --text-primary: #eafcff;
+    --text-secondary: #dbf7ff;
+    --text-muted: #98c7d8;
+    --text-soft: #c9e6f2;
+    --text-soft-2: #d7f0ff;
+    --text-accent: #00eeff;
+    --text-accent-2: #00ff9d;
+    --text-white: #ffffff;
+    --text-danger: #ffb0b0;
+    --favorite-active: #ff4f7b;
+    --favorite-bg: rgba(10, 20, 30, 0.75);
+    --shadow-accent: rgba(0, 238, 255, 0.35);
+    --shadow-accent-soft: rgba(0, 238, 255, 0.24);
+    --shadow-accent-card: rgba(0, 238, 255, 0.2);
+    --shadow-accent-strong: rgba(0, 238, 255, 0.4);
+    --shadow-accent-max: rgba(0, 238, 255, 0.6);
+    --skeleton-start: rgba(255, 255, 255, 0.07);
+    --skeleton-mid: rgba(160, 245, 255, 0.2);
+    --skeleton-end: rgba(255, 255, 255, 0.07);
+}
+
+[data-theme="light"] {
+    --background: #f3f9ff;
+    --foreground: #0c2538;
+    --page-gradient: linear-gradient(135deg, #f8fcff 0%, #e5f4ff 50%, #d8edff 100%);
+    --surface-header: linear-gradient(135deg, #f4fbff 0%, #dcf2ff 50%, #d0ecff 100%);
+    --surface-footer: linear-gradient(135deg, #eef8ff 0%, #ddecfb 50%, #cee5f8 100%);
+    --surface-card: rgba(255, 255, 255, 0.84);
+    --surface-card-soft: rgba(255, 255, 255, 0.9);
+    --surface-card-subtle: rgba(255, 255, 255, 0.94);
+    --surface-elevated: rgba(255, 255, 255, 0.92);
+    --surface-elevated-strong: rgba(255, 255, 255, 0.97);
+    --surface-overlay: rgba(6, 25, 43, 0.28);
+    --surface-menu: rgba(241, 249, 255, 0.98);
+    --surface-menu-strong: rgba(248, 252, 255, 0.98);
+    --surface-button: rgba(12, 37, 56, 0.08);
+    --surface-button-hover: rgba(12, 37, 56, 0.16);
+    --border-accent-soft: rgba(32, 130, 182, 0.28);
+    --border-accent-weak: rgba(32, 130, 182, 0.22);
+    --border-accent: rgba(32, 130, 182, 0.3);
+    --border-accent-medium: rgba(32, 130, 182, 0.35);
+    --border-accent-strong: rgba(32, 130, 182, 0.5);
+    --border-neutral-soft: rgba(67, 101, 125, 0.2);
+    --border-white-soft: rgba(67, 101, 125, 0.12);
+    --border-white-medium: rgba(67, 101, 125, 0.18);
+    --chip-bg: linear-gradient(45deg, #33a4e8, #3dc8a3);
+    --chip-text: #f9fdff;
+    --text-primary: #0c2538;
+    --text-secondary: #17364d;
+    --text-muted: #3f6c88;
+    --text-soft: #315a75;
+    --text-soft-2: #244760;
+    --text-accent: #2184ba;
+    --text-accent-2: #1fa57f;
+    --text-white: #16344b;
+    --text-danger: #b64545;
+    --favorite-active: #d84b72;
+    --favorite-bg: rgba(241, 249, 255, 0.94);
+    --shadow-accent: rgba(48, 132, 182, 0.28);
+    --shadow-accent-soft: rgba(48, 132, 182, 0.2);
+    --shadow-accent-card: rgba(48, 132, 182, 0.18);
+    --shadow-accent-strong: rgba(48, 132, 182, 0.3);
+    --shadow-accent-max: rgba(48, 132, 182, 0.4);
+    --skeleton-start: rgba(22, 82, 116, 0.1);
+    --skeleton-mid: rgba(56, 145, 196, 0.22);
+    --skeleton-end: rgba(22, 82, 116, 0.1);
+}

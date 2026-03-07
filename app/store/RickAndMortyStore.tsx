@@ -31,10 +31,12 @@ const initialState: RickAndMortyState = {
         episodes: [],
         locations: [],
     },
+    theme: "dark",
 };
 
 const RickAndMortyStoreContext = createContext<RickAndMortyStoreValue | null>(null);
 const FAVORITES_STORAGE_KEY = "rick-and-morty-favorites";
+const THEME_STORAGE_KEY = "rick-and-morty-theme";
 
 export const RickAndMortyProvider = ({children}: PropsWithChildren) => {
     const [state, setState] = useState<RickAndMortyState>(initialState);
@@ -65,12 +67,31 @@ export const RickAndMortyProvider = ({children}: PropsWithChildren) => {
     }, []);
 
     useEffect(() => {
+        try {
+            const rawTheme = localStorage.getItem(THEME_STORAGE_KEY);
+            const restoredTheme = rawTheme === "light" ? "light" : "dark";
+
+            setState((prev) => ({
+                ...prev,
+                theme: restoredTheme,
+            }));
+        } catch (error) {
+            console.error("Failed to restore theme from localStorage", error);
+        }
+    }, []);
+
+    useEffect(() => {
         if (!favoritesHydrated) {
             return;
         }
 
         localStorage.setItem(FAVORITES_STORAGE_KEY, JSON.stringify(state.favorites));
     }, [favoritesHydrated, state.favorites]);
+
+    useEffect(() => {
+        localStorage.setItem(THEME_STORAGE_KEY, state.theme);
+        document.documentElement.setAttribute("data-theme", state.theme);
+    }, [state.theme]);
 
     const actions = useMemo<RickAndMortyStoreActions>(() => ({
         beginResource: (resource, key, resetData = true) => {
@@ -154,6 +175,12 @@ export const RickAndMortyProvider = ({children}: PropsWithChildren) => {
                     },
                 };
             });
+        },
+        toggleTheme: () => {
+            setState((prev) => ({
+                ...prev,
+                theme: prev.theme === "dark" ? "light" : "dark",
+            }));
         },
     }), []);
     const value = useMemo(() => ({state, setState, actions}), [actions, state]);

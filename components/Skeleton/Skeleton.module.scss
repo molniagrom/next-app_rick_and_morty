@@ -4,9 +4,9 @@
     border-radius: 14px;
     background: linear-gradient(
         90deg,
-        rgba(255, 255, 255, 0.07) 0%,
-        rgba(160, 245, 255, 0.2) 50%,
-        rgba(255, 255, 255, 0.07) 100%
+        var(--surface-card) 0%,
+        var(--skeleton-mid) 50%,
+        var(--surface-card) 100%
     );
     background-size: 220% 100%;
     animation: skeletonPulse 1.2s ease-in-out infinite;
@@ -21,3 +21,4 @@
         background-position: -200% 0;
     }
 }
+

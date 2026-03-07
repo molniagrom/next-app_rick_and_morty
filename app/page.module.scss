@@ -1,5 +1,5 @@
 .navLink {
-    color: #0066cc;
+    color: var(--text-accent);
     text-decoration: none;
     font-weight: 500;
     font-size: 1.1rem;
@@ -7,7 +7,7 @@
 
     &:hover,
     &:focus {
-        color: #004080;
+        color: var(--text-secondary);
         text-decoration: underline;
         text-underline-offset: 4px;
     }
@@ -20,8 +20,8 @@
     justify-content: center;
     min-height: 100vh;
     padding: 20px;
-    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
-    color: #fff;
+    background: var(--page-gradient);
+    color: var(--text-white);
 }
 
 .welcomeContainer {
@@ -37,26 +37,26 @@
         font-size: 3.5rem;
         font-weight: 800;
         margin: 0 0 15px 0;
-        background: linear-gradient(45deg, #00eeff, #00ff9d);
+        background: var(--chip-bg);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         background-clip: text;
-        text-shadow: 0 0 30px rgba(0, 238, 255, 0.5);
+        text-shadow: 0 0 30px color-mix(in srgb, var(--text-accent) 50%, transparent);
     }
     
     .subtitle {
         font-size: 1.8rem;
         font-weight: 300;
         margin: 0;
-        color: #a0d2eb;
+        color: var(--text-soft);
         opacity: 0.9;
     }
 }
 
 .contentSection {
     .infoCard {
-        background: rgba(255, 255, 255, 0.05);
-        border: 1px solid rgba(0, 238, 255, 0.3);
+        background: var(--surface-card);
+        border: 1px solid var(--border-accent);
         border-radius: 15px;
         padding: 30px;
         margin-bottom: 40px;
@@ -65,13 +65,13 @@
         h3 {
             font-size: 2rem;
             margin: 0 0 15px 0;
-            color: #00eeff;
+            color: var(--text-accent);
         }
         
         p {
             font-size: 1.2rem;
             line-height: 1.6;
-            color: #e0e0e0;
+            color: var(--text-soft);
             max-width: 800px;
             margin: 0 auto;
         }
@@ -91,16 +91,16 @@
     }
     
     .featureItem {
-        background: rgba(255, 255, 255, 0.03);
-        border: 1px solid rgba(128, 128, 128, 0.2);
+        background: var(--surface-card-subtle);
+        border: 1px solid var(--border-neutral-soft);
         border-radius: 12px;
         padding: 25px;
         transition: all 0.3s ease;
         
         &:hover {
             transform: translateY(-5px);
-            border-color: rgba(0, 238, 255, 0.5);
-            box-shadow: 0 10px 25px rgba(0, 238, 255, 0.2);
+            border-color: color-mix(in srgb, var(--text-accent) 50%, transparent);
+            box-shadow: 0 10px 25px var(--border-accent-weak);
         }
         
         .featureIcon {
@@ -112,12 +112,12 @@
         h4 {
             font-size: 1.4rem;
             margin: 0 0 10px 0;
-            color: #00ff9d;
+            color: var(--text-accent-2);
         }
         
         p {
             font-size: 1rem;
-            color: #b0b0b0;
+            color: var(--text-muted);
             line-height: 1.5;
             margin: 0;
         }
@@ -126,21 +126,21 @@
     .ctaSection {
         .exploreButton {
             display: inline-block;
-            background: linear-gradient(45deg, #00eeff, #00ff9d);
-            color: #000;
+            background: var(--chip-bg);
+            color: var(--chip-text);
             font-size: 1.4rem;
             font-weight: 700;
             padding: 18px 40px;
             border-radius: 50px;
             text-decoration: none;
             transition: all 0.3s ease;
-            box-shadow: 0 5px 20px rgba(0, 238, 255, 0.4);
+            box-shadow: 0 5px 20px var(--shadow-accent-strong);
             
             &:hover {
                 transform: scale(1.05);
-                box-shadow: 0 8px 30px rgba(0, 238, 255, 0.6);
+                box-shadow: 0 8px 30px var(--shadow-accent-max);
                 text-decoration: none;
-                color: #000;
+                color: var(--chip-text);
             }
         }
     }
@@ -175,3 +175,4 @@
         }
     }
 }
+

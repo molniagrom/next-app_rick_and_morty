@@ -1,7 +1,7 @@
 .page {
     min-height: 100vh;
     padding: 28px 20px 44px;
-    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    background: var(--page-gradient);
 }
 
 .container {
@@ -11,11 +11,11 @@
 
 .stateBox,
 .infoCard {
-    border: 1px solid rgba(0, 238, 255, 0.3);
+    border: 1px solid var(--border-accent);
     border-radius: 14px;
-    background: rgba(255, 255, 255, 0.05);
+    background: var(--surface-card);
     backdrop-filter: blur(8px);
-    color: #eafcff;
+    color: var(--text-primary);
 }
 
 .stateBox {
@@ -33,7 +33,7 @@
     margin: 0 0 10px;
     font-size: clamp(2rem, 4vw, 2.6rem);
     font-weight: 800;
-    background: linear-gradient(45deg, #00eeff, #00ff9d);
+    background: var(--chip-bg);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -44,7 +44,7 @@
 }
 
 .infoCard span {
-    color: #98c7d8;
+    color: var(--text-muted);
 }
 
 .residentsBlock {
@@ -52,7 +52,7 @@
 }
 
 .residentsLabel {
-    color: #98c7d8;
+    color: var(--text-muted);
 }
 
 .emptyResidents {
@@ -66,7 +66,7 @@
 
 .characterLink,
 .backLink {
-    color: #00eeff;
+    color: var(--text-accent);
     text-decoration: none;
 }
 

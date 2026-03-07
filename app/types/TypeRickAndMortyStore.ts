@@ -21,6 +21,7 @@ export type RickAndMortyState = {
         episodes: EpisodeType[],
         locations: LocationType[],
     },
+    theme: "dark" | "light",
 }
 
 export type RickAndMortyStoreValue = {
@@ -53,4 +54,5 @@ export type RickAndMortyStoreActions = {
     toggleFavoriteCharacter: (character: CharacterType) => void,
     toggleFavoriteEpisode: (episode: EpisodeType) => void,
     toggleFavoriteLocation: (location: LocationType) => void,
+    toggleTheme: () => void,
 }

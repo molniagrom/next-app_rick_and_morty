@@ -1,7 +1,7 @@
 .page {
     min-height: calc(100vh - 220px);
     padding: 24px;
-    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    background: var(--page-gradient);
 }
 
 .container {
@@ -11,7 +11,7 @@
 
 .backLink {
     display: inline-block;
-    color: #9defff;
+    color: var(--text-soft);
     text-decoration: none;
     margin-bottom: 10px;
 }
@@ -24,7 +24,7 @@
     margin: 0 0 8px;
     font-size: clamp(1.8rem, 3vw, 2.4rem);
     font-weight: 800;
-    background: linear-gradient(45deg, #00eeff, #00ff9d);
+    background: var(--chip-bg);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -32,7 +32,7 @@
 
 .subtitle {
     margin: 0 0 18px;
-    color: #c9e6f2;
+    color: var(--text-soft);
 }
 
 .metrics {
@@ -44,19 +44,19 @@
 
 .metric {
     border-radius: 12px;
-    background: rgba(255, 255, 255, 0.08);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: var(--surface-elevated);
+    border: 1px solid var(--surface-elevated-strong);
     padding: 10px;
 }
 
 .metric span {
     display: block;
-    color: #c9e6f2;
+    color: var(--text-soft);
     font-size: 12px;
 }
 
 .metric strong {
-    color: #ffffff;
+    color: var(--text-white);
     font-size: 18px;
 }
 
@@ -72,7 +72,7 @@
 
 .state {
     margin: 0;
-    color: #d7f0ff;
+    color: var(--text-soft-2);
 }
 
 .loadingState {

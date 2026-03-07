@@ -1,8 +1,8 @@
 .card {
-  border: 1px solid rgba(0, 238, 255, 0.28);
+  border: 1px solid color-mix(in srgb, var(--text-accent) 28%, transparent);
   border-radius: 12px;
   overflow: hidden;
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--surface-card);
   backdrop-filter: blur(10px);
   transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
   display: flex;
@@ -15,15 +15,15 @@
 
   &:hover {
     transform: translateY(-5px);
-    border-color: rgba(0, 238, 255, 0.55);
-    box-shadow: 0 12px 28px rgba(0, 238, 255, 0.24);
+    border-color: var(--border-accent-strong);
+    box-shadow: 0 12px 28px var(--shadow-accent-soft);
   }
 
   .name {
     font-size: 1.15rem;
     font-weight: 700;
     margin-bottom: 12px;
-    color: #eafcff;
+    color: var(--text-primary);
     text-align: center;
     min-height: 2.6em;
     display: flex;
@@ -36,3 +36,4 @@
     object-fit: cover;
   }
 }
+

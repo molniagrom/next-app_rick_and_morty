@@ -4,15 +4,15 @@
     align-items: center;
     justify-content: center;
     padding: 24px;
-    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    background: var(--page-gradient);
 }
 
 .card {
     width: min(760px, 100%);
     text-align: center;
-    border: 1px solid rgba(0, 238, 255, 0.32);
+    border: 1px solid color-mix(in srgb, var(--text-accent) 32%, transparent);
     border-radius: 16px;
-    background: rgba(255, 255, 255, 0.05);
+    background: var(--surface-card);
     backdrop-filter: blur(8px);
     padding: 28px 20px;
 }
@@ -21,7 +21,7 @@
     margin: 0 0 10px;
     font-size: clamp(1.7rem, 3vw, 2.5rem);
     font-weight: 800;
-    background: linear-gradient(45deg, #00eeff, #00ff9d);
+    background: var(--chip-bg);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -29,6 +29,7 @@
 
 .subtitle {
     margin: 0;
-    color: #c9e6f2;
+    color: var(--text-soft);
     font-size: 1rem;
 }
+
